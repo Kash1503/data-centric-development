@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row">
+    <div class="col s6 offset-s3">
+        <h4>Register for an account</h4>
+    </div>
+</div>
+<div class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="Username" name="Username" type="text" class="validate">
+                <label for="Username">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">person</i>
+                <input id="Firstname" name="Firstname" type="text" class="validate">
+                <label for="Firstname">First Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">people</i>
+                <input id="Lastname" name="Lastname" type="tel" class="validate">
+                <label for="icon_telephone">Last Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">not_listed_location</i>
+                <input id="Country" name="Country" type="text" class="validate">
+                <label for="Country">Country of Residence</label>
+            </div>
+        </div>
+        <div class="col s12">
+            <button class="waves-effect waves-light btn" type="submit" name="action">Create Account
+                    <i class="material-icons left">check_circle</i>
+                </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
