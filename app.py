@@ -13,8 +13,10 @@ connection = pymysql.connect(host='localhost',
                             password='',
                             db='Recipes')
                             
-
-
+@app.route('/')
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

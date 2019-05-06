@@ -1,0 +1,37 @@
+{% extends 'base.html'%} {% block content %}
+
+<div class="row">
+    <div class="col s12">
+        <div class="col s6 offset-s3">
+            <h4>Welcome to Recipes.Com</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <form action="" method="" class="col s12">
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <h5>Already a user?</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="username" name="username" type="text" class="validate">
+                <label for="username">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3 offset-s3">
+                <button class="waves-effect waves-light btn" type="submit" name="action">Log in
+                    <i class="material-icons left">check_circle</i>
+                </button>
+            </div>
+            <div class="col s3">
+                <a class="waves-effect waves-light btn blue"><i class="material-icons left">assignment</i>Register</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
