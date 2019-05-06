@@ -23,7 +23,28 @@ def login():
 def register():
     return render_template('register.html')
 
-
+@app.route('/insert_user', methods=['POST'])
+def insert_user():
+    
+    try:
+        with connection.cursor() as cursor:
+            # Create a tuple from the form data on the registration page
+            row = (request.form.get('username').lower(), 
+                    request.form.get('country'), 
+                    request.form.get('firstname'), 
+                    request.form.get('lastname'))
+            
+            # Insert the new row into the User table
+            cursor.execute('INSERT INTO User (Username, Country, Firstname, Lastname) VALUES (%s, %s, %s, %s);', row)
+            connection.commit()
+    finally:
+        # Close the connection
+        connection.close()
+    
+    # Go back to the login page
+    return redirect(url_for('login'))
+        
+    
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),
