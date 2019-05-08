@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
 
-<div>Hello {{user_data[3]}} {{user_data[4]}} from {{user_data[2]}}. Your username is: {{user_data[1]}}</div>
+<div>Hello {{user_data.firstname.capitalize()}} {{user_data.lastname.capitalize()}} from {{user_data.country.capitalize()}}. Your username is: {{user_data.username}}</div>
 
 {% endblock %}

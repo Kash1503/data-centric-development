@@ -1,22 +1,17 @@
 # Imports
 import os
 from flask import Flask, redirect, request, render_template, url_for, flash
-import pymysql
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-# Create secret key
-app.secret_key = 'secret_key'
+app.config["MONGO_DBNAME"] = "recipesDB"
+app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
-# Get the MySQL username from C9
-username = os.getenv('C9_USER')
+app.secret_key = os.getenv('SECRET_KEY')
 
-# Connect to the Recipes database
-connection = pymysql.connect(host='localhost',
-                            user=username,
-                            password='',
-                            db='Recipes')
-                         
+mongo = PyMongo(app)
 
 # Render Templates
 
@@ -42,12 +37,9 @@ def user_page(username):
 
 # Query all of the information for the user and then render the 
 # 'user.html' template, passing in the result from the query
-
-    with connection.cursor() as cursor:
-        
-        # Search for the full user data to pass to 'user'html'
-        cursor.execute('SELECT * FROM User WHERE Username = %s;', username.lower())
-        result = cursor.fetchone()
+    
+    # Search for the user in user collection using the username passed into user_page function and store in a variable
+    result = mongo.db.user.find_one({'username': username.lower()})
         
     return render_template('user.html', user_data=result)
     
@@ -58,22 +50,11 @@ def user_page(username):
 def insert_user():
 
 # Take data from the form on the registration page and insert into the User table
-
-    try:
-        with connection.cursor() as cursor:
-            # Create a tuple from the form data on the registration page
-            row = (request.form.get('username').lower(), 
-                    request.form.get('country'), 
-                    request.form.get('firstname'), 
-                    request.form.get('lastname'))
-            
-            # Insert the new row into the User table
-            cursor.execute('INSERT INTO User (Username, Country, Firstname, Lastname) VALUES (%s, %s, %s, %s);', row)
-            connection.commit()
-    finally:
-        # Close the connection
-        connection.close()
     
+    # Store the user collection in variable 'user'
+    user = mongo.db.user
+    # Insert the form data into the user collection
+    user.insert_one(request.form.to_dict())
     # Go back to the login page
     return redirect(url_for('login'))
 
@@ -87,21 +68,18 @@ def get_user():
 
     # Store username entered by the user in a variable
     form_username = request.form.get('username')
+    # Search for a user in the user collection and store the result in a variable
+    user = mongo.db.user.find_one({'username': form_username.lower()})
     
-    with connection.cursor() as cursor:
+    # Check to see if the form username returns an entry from the user collection
+    if user != None:
+        # If it does, redirect to the user page
+        return redirect(url_for('user_page', username=user['username']))
+    else:
+        # If not, add Flash message and return to the login page
+        flash('Sorry, this is not a valid username')
+        return redirect(url_for('login'))
         
-        # Query the database, using the variable created above
-        cursor.execute('SELECT * FROM User WHERE Username = %s;', form_username.lower())
-        result = cursor.fetchone()
-        
-        if result != None:
-            # If it does, redirect to the user page
-            return redirect(url_for('user_page', username=form_username))
-                
-        else:
-            # If not, add Flash message and return to the login page
-            flash('Sorry, this is not a valid username')
-            return redirect(url_for('login'))
 
 # Get the IP address and PORT number from the os and run the app
 if __name__ == '__main__':
