@@ -38,10 +38,14 @@ def user_page(username):
 # Query all of the information for the user and then render the 
 # 'user.html' template, passing in the result from the query
     
-    # Search for the user in user collection using the username passed into user_page function and store in a variable
-    result = mongo.db.user.find_one({'username': username.lower()})
-        
-    return render_template('user.html', user_data=result)
+    # Search for the user in user collection using the username passed 
+    # into user_page function and store returned dict in a variable
+    user_data = mongo.db.user.find_one({'username': username.lower()})
+    
+    # Search for the recipes created by the user and store information in a variable
+    recipes = mongo.db.recipes.find({'user': username.lower()})
+    
+    return render_template('user.html', user_data=user_data, recipes=recipes)
     
     
 # Functions, queries and redirects
@@ -61,7 +65,7 @@ def insert_user():
 
 @app.route('/get_user', methods=['POST'])
 def get_user():
-    
+
 # Take username entered by the user and use it to query the User table. 
 # If the result is not None, redirect the user 
 # to the user page and pass the entered username to the user_page function
