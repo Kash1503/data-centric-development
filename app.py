@@ -32,6 +32,17 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/add_recipe/<username>')
+
+# Render the 'addrecipe.html' template and pass in the username from user.html
+# and pass in the cuisine and allergen collections
+
+def add_recipe(username):
+    return render_template('addrecipe.html', username=username, 
+                                            allergens=mongo.db.allergens.find(), 
+                                            cuisine=mongo.db.cuisine.find())
+    
+
 @app.route('/user_page/<username>')
 def user_page(username):
 
@@ -85,6 +96,41 @@ def get_user():
         return redirect(url_for('login'))
         
 
+@app.route('/insert_recipe/<username>', methods=['POST'])
+def insert_recipe(username):
+    
+# Take data from the add recipe form and 
+# create new entry in the recipe collection
+    
+    # Take data from the form and add it to a new dict, including default values
+    # such as the views, upvotes and user, then store in a variable
+    new_recipe = {
+        
+        'title': request.form.get('title'),
+        'instructions': request.form.get('instructions'),
+        'ingredients': request.form.get('ingredients'),
+        'servings': request.form.get('servings'),
+        'time': request.form.get('time'),
+        'cuisine': request.form.get('cuisine'),
+        'views': 0,
+        'user': username.lower(),
+        'description': request.form.get('description'),
+        'allergen': request.form.get('allergen'),
+        'upvotes': 0,
+        'carbs': request.form.get('carbs'),
+        'protein': request.form.get('protein'),
+        'fat': request.form.get('fat'),
+        'calories': request.form.get('calories'),
+    }
+    
+    # Store the collection connection to a variable
+    recipes = mongo.db.recipes
+    # Insert the new recipe into the recipes collection
+    recipes.insert_one(new_recipe)
+    # redirect back to the user page, passing in the username
+    return redirect(url_for('user_page', username=username.lower()))
+    
+    
 # Get the IP address and PORT number from the os and run the app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

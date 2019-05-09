@@ -10,9 +10,9 @@
         <div>
             Hi {{user_data.firstname.capitalize()}}<br> Your recipes: {{recipes.count()}}
         </div>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>New Recipe</a>
+        <a href="{{url_for('add_recipe', username=user_data.username.lower())}}" class="waves-effect waves-light btn">
+            <i class="material-icons left">add_circle_outline</i>New Recipe</a>
     </div>
-
     <div class="col s8">
         <div class="collection">
             {% for recipe in recipes %}
