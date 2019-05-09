@@ -15,12 +15,18 @@
     </div>
     <div class="col s8">
         <div class="collection">
+
+            {% if recipes.count() > 0 %} 
             {% for recipe in recipes %}
             <a href="#" class="collection-item">
                 {{recipe.title}}<i class="material-icons right">edit</i>
                 <i class="material-icons">remove_red_eye</i>{{recipe.upvotes}}
                 <i class="material-icons">thumb_up</i>{{recipe.views}}
-            </a> {% endfor %}
+            </a> {% endfor %} 
+            {% else %}
+                <div class="collection-item">You don't have any recipes! Why not 
+                <a href="{{url_for('add_recipe', username=user_data.username.lower())}}">create one now?</a></div>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -12,10 +12,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recipes.Com</title>
+    <title>Recipe Book</title>
 </head>
 
 <body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Recipe Book</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Browse</a></li>
+                    <li><a href="#">Analytics</a></li>
+                    <li><a href="{{url_for('login')}}">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
     <!--Container for the block content-->
     <div class="container">
         <!--Content from other templates will go here-->
