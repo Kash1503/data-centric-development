@@ -1,49 +1,74 @@
-{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="row">
-    <div class="col s6 offset-s3">
-        <h4>Register for an account</h4>
-    </div>
-</div>
-<div class="row">
-    <form action="{{url_for('insert_user')}}" method="POST" class="col s12">
+<head>
+    <!--Google icon font call-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Materialize css 0.100.2 call-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!--link to the style.css file in the static folder-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recipe Book</title>
+</head>
+
+<body>
+    <div class="container">
+
         <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input required id="username" name="username" type="text" class="validate">
-                <label for="username">Username</label>
+            <div class="col s6 offset-s3">
+                <h4>Register for an account</h4>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">person</i>
-                <input required id="firstname" name="firstname" type="text" class="validate">
-                <label for="firstname">First Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">people</i>
-                <input required id="lastname" name="lastname" type="tel" class="validate">
-                <label for="lastname">Last Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">not_listed_location</i>
-                <input required id="country" name="country" type="text" class="validate">
-                <label for="country">Country of Residence</label>
-            </div>
-        </div>
-        <div class="col s3">
-            <button class="waves-effect waves-light btn" type="submit" name="action">Register
+            <form action="{{url_for('insert_user')}}" method="POST" class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input required id="username" name="username" type="text" class="validate">
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">person</i>
+                        <input required id="firstname" name="firstname" type="text" class="validate">
+                        <label for="firstname">First Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">people</i>
+                        <input required id="lastname" name="lastname" type="tel" class="validate">
+                        <label for="lastname">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">not_listed_location</i>
+                        <input required id="country" name="country" type="text" class="validate">
+                        <label for="country">Country of Residence</label>
+                    </div>
+                </div>
+                <div class="col s3">
+                    <button class="waves-effect waves-light btn" type="submit" name="action">Register
                     <i class="material-icons left">check_circle</i>
                 </button>
+                </div>
+                <div class="col s3">
+                    <a href="{{url_for('login')}}" class="waves-effect waves-light btn blue"><i class="material-icons left">exit_to_app</i>Go back</a>
+                </div>
+            </form>
         </div>
-        <div class="col s3">
-            <a href="{{url_for('login')}}" class="waves-effect waves-light btn blue"><i class="material-icons left">exit_to_app</i>Go back</a>
-        </div>
-    </form>
-</div>
+    </div>
 
-{% endblock %}
+    <!--Initialise jQuery 3.2.1-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--Materialize js 0.100.2 call-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+
+</html>
