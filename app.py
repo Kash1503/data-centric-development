@@ -89,6 +89,18 @@ def browse(username):
                                             allergens=allergens,
                                             cuisine=cuisine)
 
+
+@app.route('/recipe_details/<username>/<recipe_id>')
+def recipe_details(username, recipe_id):
+    
+# Using the recipe ID, display the recipe details page and pass
+# the data in. Also pass username to pass back to user if needed
+    
+    # Store the data from mongoDB in variables
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    # Render the recipe details page, passing in the relevant data
+    return render_template('recipedetails.html', username=username, recipe=recipe)
+
 # Functions, queries and redirects
 
 @app.route('/insert_user', methods=['POST'])
@@ -196,6 +208,7 @@ def update_recipe(username, recipe_id):
     recipes.update({'_id': ObjectId(recipe_id)}, updated_recipe)
     # redirect back to the user page, passing in the username
     return redirect(url_for('user_page', username=username.lower()))
+
 
 @app.route('/delete_recipe/<username>/<recipe_id>')
 def delete_recipe(username, recipe_id):

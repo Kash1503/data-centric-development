@@ -11,7 +11,7 @@
 
             {% if recipes.count() > 0 %} 
             {% for recipe in recipes %}
-            <a href="#" class="collection-item">
+            <a href="{{url_for('recipe_details', username=username, recipe_id=recipe._id)}}" class="collection-item">
                 {{recipe.title}}
                 <i class="material-icons">remove_red_eye</i>{{recipe.upvotes}}
                 <i class="material-icons">thumb_up</i>{{recipe.views}}
