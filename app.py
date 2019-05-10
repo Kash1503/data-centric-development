@@ -56,9 +56,27 @@ def user_page(username):
     # Search for the recipes created by the user and store information in a variable
     recipes = mongo.db.recipes.find({'user': username.lower()})
     
-    return render_template('user.html', user_data=user_data, recipes=recipes)
+    return render_template('user.html', username=username, user_data=user_data, recipes=recipes)
     
+
+@app.route('/browse/<username>')
+def browse(username):
     
+# Load the browse page and pass in data from the recipes, allergens and 
+# cuisine collections for use with filtering
+
+    # Store the searches in variables
+    recipes = mongo.db.recipes.find()
+    allergens = mongo.db.allergens.find()
+    cuisine = mongo.db.allergens.find()
+    
+    # Render the browse.html page and pass in data, keeping the 
+    # username to pass back to user page if needed
+    return render_template('browse.html', username=username,
+                                            recipes=recipes,
+                                            allergens=allergens,
+                                            cuisine=cuisine)
+
 # Functions, queries and redirects
 
 @app.route('/insert_user', methods=['POST'])

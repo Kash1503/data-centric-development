@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row">
+    <div class="col s9 offset-s3">
+        <h4>Browse our recipes!</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        <div class="collection">
+
+            {% if recipes.count() > 0 %} 
+            {% for recipe in recipes %}
+            <a href="#" class="collection-item">
+                {{recipe.title}}
+                <i class="material-icons">remove_red_eye</i>{{recipe.upvotes}}
+                <i class="material-icons">thumb_up</i>{{recipe.views}}
+            </a> {% endfor %} 
+            {% else %}
+                <div class="collection-item">Oh no! There's no recipes in the book!  
+                <a href="{{url_for('add_recipe', username=user_data.username.lower())}}">Be the first to add a recipe here!</a></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
