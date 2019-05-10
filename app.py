@@ -141,11 +141,11 @@ def insert_recipe(username):
         'ingredients': request.form.get('ingredients'),
         'servings': request.form.get('servings'),
         'time': request.form.get('time'),
-        'cuisine': request.form.get('cuisine'),
+        'cuisine': request.form.get('cuisine').lower(),
         'views': 0,
         'user': username.lower(),
         'description': request.form.get('description'),
-        'allergen': request.form.get('allergen'),
+        'allergen': request.form.get('allergen').lower(),
         'upvotes': 0,
         'carbs': request.form.get('carbs'),
         'protein': request.form.get('protein'),
@@ -178,11 +178,11 @@ def update_recipe(username, recipe_id):
         'ingredients': request.form.get('ingredients'),
         'servings': request.form.get('servings'),
         'time': request.form.get('time'),
-        'cuisine': request.form.get('cuisine'),
+        'cuisine': request.form.get('cuisine').lower(),
         'views': recipe['views'],
         'user': username.lower(),
         'description': request.form.get('description'),
-        'allergen': request.form.get('allergen'),
+        'allergen': request.form.get('allergen').lower(),
         'upvotes': recipe['upvotes'],
         'carbs': request.form.get('carbs'),
         'protein': request.form.get('protein'),
@@ -196,7 +196,19 @@ def update_recipe(username, recipe_id):
     recipes.update({'_id': ObjectId(recipe_id)}, updated_recipe)
     # redirect back to the user page, passing in the username
     return redirect(url_for('user_page', username=username.lower()))
+
+@app.route('/delete_recipe/<username>/<recipe_id>')
+def delete_recipe(username, recipe_id):
+
+# Using the id of the recipe, delete it from the collection
     
+    # Store the collection connection in a variable
+    recipes = mongo.db.recipes
+    # Delete the recipe from the collection
+    recipes.remove({'_id': ObjectId(recipe_id)})
+    # Redirect back to the user page
+    return redirect(url_for('user_page', username=username))
+
     
 # Get the IP address and PORT number from the os and run the app
 if __name__ == '__main__':
