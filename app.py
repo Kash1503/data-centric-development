@@ -43,6 +43,18 @@ def add_recipe(username):
                                             cuisine=mongo.db.cuisine.find())
     
 
+@app.route('/edit_recipe/<username>/<recipe_id>')
+
+# Render the 'editrecipe.html' template and pass in the username from user.html
+# and pass in the cuisine and allergen collections
+
+def edit_recipe(username, recipe_id):
+    return render_template('editrecipe.html', username=username, 
+                                            allergens=mongo.db.allergens.find(), 
+                                            cuisine=mongo.db.cuisine.find(),
+                                            recipe=mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}))
+
+
 @app.route('/user_page/<username>')
 def user_page(username):
 
@@ -145,6 +157,43 @@ def insert_recipe(username):
     recipes = mongo.db.recipes
     # Insert the new recipe into the recipes collection
     recipes.insert_one(new_recipe)
+    # redirect back to the user page, passing in the username
+    return redirect(url_for('user_page', username=username.lower()))
+    
+
+@app.route('/update_recipe/<username>/<recipe_id>', methods=['POST'])
+def update_recipe(username, recipe_id):
+    
+# Take new data from the edit recipe form and 
+# update entry in the recipe collection
+    
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    
+    # Take data from the form and add it to a new dict, ensuring to retain values
+    # such as the views, upvotes and user, then store in a variable
+    updated_recipe = {
+        
+        'title': request.form.get('title'),
+        'instructions': request.form.get('instructions'),
+        'ingredients': request.form.get('ingredients'),
+        'servings': request.form.get('servings'),
+        'time': request.form.get('time'),
+        'cuisine': request.form.get('cuisine'),
+        'views': recipe['views'],
+        'user': username.lower(),
+        'description': request.form.get('description'),
+        'allergen': request.form.get('allergen'),
+        'upvotes': recipe['upvotes'],
+        'carbs': request.form.get('carbs'),
+        'protein': request.form.get('protein'),
+        'fat': request.form.get('fat'),
+        'calories': request.form.get('calories'),
+    }
+    
+    # Store the collection connection to a variable
+    recipes = mongo.db.recipes
+    # Update with the updated recipe into the recipes collection
+    recipes.update({'_id': ObjectId(recipe_id)}, updated_recipe)
     # redirect back to the user page, passing in the username
     return redirect(url_for('user_page', username=username.lower()))
     
