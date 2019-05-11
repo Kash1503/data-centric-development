@@ -5,20 +5,109 @@
         <h4>Browse our recipes!</h4>
     </div>
 </div>
+<!--Filter options-->
+<div class="row">
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">search</i> Filter
+            </div>
+            <div class="collapsible-body">
+                <form action="{{url_for('filter_recipes', username=username)}}" method="POST" >
+                    <div class="row">
+                        <div class="col s12">
+                            <!--Cuisine filter-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <select id="cuisine" name="cuisine">
+                                    <option value="all" selected>All</option>
+                                    {% for c in cuisine %}
+                                    <option value="{{c.name}}">{{c.name.capitalize()}}</option>
+                                    {% endfor %}
+                                </select>
+                                    <label for="cuisine">Cuisine</label>
+                                </div>
+                            </div>
+                            <!--Allergens filter-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <select id="allergens" name="allergens">
+                                    <option value="all" selected>All</option>
+                                    {% for allergen in allergens %}
+                                    <option value="{{allergen.name}}">{{allergen.name.capitalize()}}</option>
+                                    {% endfor %}
+                                </select>
+                                    <label for="allergens">Allergens</label>
+                                </div>
+                            </div>
+                            <!--Time filter-->
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <select id="time" name="time">
+                                    <option value="0 180" selected>Any</option>
+                                    <option value="1 30">1-30</option>
+                                    <option value="31 60">31-60</option>
+                                    <option value="61 90">61-90</option>
+                                    <option value="91 120">91-120</option>
+                                    <option value="121 150">121-150</option>
+                                    <option value="151 180">151-180</option>
+                                </select>
+                                    <label for="time">Time (mins)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Servings filter-->
+                        <div class="col s6">
+                            <div class="input-field col s12">
+                                <select id="servings" name="servings">
+                                    <option value="0 20" selected>Any</option>
+                                    <option value="1 5">1-5</option>
+                                    <option value="6 10">6-10</option>
+                                    <option value="11 15">11-15</option>
+                                    <option value="16 20">16-20</option>
+                                </select>
+                                <label for="servings">Servings</label>
+                            </div>
+                        </div>
+                        <!--Calories filter-->
+                        <div class="col s6">
+                            <div class="input-field col s12">
+                                <select id="calories" name="calories">
+                                    <option value="0 1000" selected>Any</option>
+                                    <option value="1 250">1-250</option>
+                                    <option value="251 500">251-500</option>
+                                    <option value="501 750">501-750</option>
+                                    <option value="751 1000">751-1000</option>
+                                </select>
+                                <label for="calories">Calories (per serving)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3">
+                            <button class="waves-effect waves-light btn" type="submit" name="action">Filter
+                                <i class="material-icons left">search</i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
 <div class="row">
     <div class="col s12">
         <div class="collection">
 
-            {% if recipes.count() > 0 %} 
-            {% for recipe in recipes %}
+            {% if recipes.count() > 0 %} {% for recipe in recipes %}
             <a href="{{url_for('recipe_details', username=username, recipe_id=recipe._id)}}" class="collection-item">
                 {{recipe.title}}
-                <i class="material-icons">remove_red_eye</i>{{recipe.upvotes}}
-                <i class="material-icons">thumb_up</i>{{recipe.views}}
-            </a> {% endfor %} 
-            {% else %}
-                <div class="collection-item">Oh no! There's no recipes in the book!  
-                <a href="{{url_for('add_recipe', username=user_data.username.lower())}}">Be the first to add a recipe here!</a></div>
+                <i class="material-icons">remove_red_eye</i>{{recipe.views}}
+                <i class="material-icons">thumb_up</i>{{recipe.upvotes}}
+            </a> {% endfor %} {% else %}
+            <div class="collection-item">Oh no! There's no recipes in the book!
+                <a href="{{url_for('add_recipe', username=username.lower())}}">Be the first to add a recipe here!</a></div>
             {% endif %}
         </div>
     </div>

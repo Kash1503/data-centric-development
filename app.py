@@ -80,7 +80,7 @@ def browse(username):
     # Store the searches in variables
     recipes = mongo.db.recipes.find()
     allergens = mongo.db.allergens.find()
-    cuisine = mongo.db.allergens.find()
+    cuisine = mongo.db.cuisine.find()
     
     # Render the browse.html page and pass in data, keeping the 
     # username to pass back to user page if needed
@@ -94,9 +94,14 @@ def browse(username):
 def recipe_details(username, recipe_id):
     
 # Using the recipe ID, display the recipe details page and pass
-# the data in. Also pass username to pass back to user if needed
+# the data in. Also pass username to pass back to user if needed.
+# Also add 1 to the views for the recipe when this page is loaded.
     
     # Store the data from mongoDB in variables
+    recipe_views = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    # Add one to the views for the recipe
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { '$set': {'views': recipe_views['views'] + 1}})
+    # Store recipe in new variable with update 'views' field to pass to render template
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     # Render the recipe details page, passing in the relevant data
     return render_template('recipedetails.html', username=username, recipe=recipe)
@@ -151,18 +156,18 @@ def insert_recipe(username):
         'title': request.form.get('title'),
         'instructions': request.form.get('instructions'),
         'ingredients': request.form.get('ingredients'),
-        'servings': request.form.get('servings'),
-        'time': request.form.get('time'),
+        'servings': int(request.form.get('servings')),
+        'time': int(request.form.get('time')),
         'cuisine': request.form.get('cuisine').lower(),
         'views': 0,
         'user': username.lower(),
         'description': request.form.get('description'),
         'allergen': request.form.get('allergen').lower(),
         'upvotes': 0,
-        'carbs': request.form.get('carbs'),
-        'protein': request.form.get('protein'),
-        'fat': request.form.get('fat'),
-        'calories': request.form.get('calories'),
+        'carbs': int(request.form.get('carbs')),
+        'protein': int(request.form.get('protein')),
+        'fat': int(request.form.get('fat')),
+        'calories': int(request.form.get('calories')),
     }
     
     # Store the collection connection to a variable
@@ -188,18 +193,18 @@ def update_recipe(username, recipe_id):
         'title': request.form.get('title'),
         'instructions': request.form.get('instructions'),
         'ingredients': request.form.get('ingredients'),
-        'servings': request.form.get('servings'),
-        'time': request.form.get('time'),
+        'servings': int(request.form.get('servings')),
+        'time': int(request.form.get('time')),
         'cuisine': request.form.get('cuisine').lower(),
         'views': recipe['views'],
         'user': username.lower(),
         'description': request.form.get('description'),
         'allergen': request.form.get('allergen').lower(),
         'upvotes': recipe['upvotes'],
-        'carbs': request.form.get('carbs'),
-        'protein': request.form.get('protein'),
-        'fat': request.form.get('fat'),
-        'calories': request.form.get('calories'),
+        'carbs': int(request.form.get('carbs')),
+        'protein': int(request.form.get('protein')),
+        'fat': int(request.form.get('fat')),
+        'calories': int(request.form.get('calories')),
     }
     
     # Store the collection connection to a variable
@@ -222,7 +227,77 @@ def delete_recipe(username, recipe_id):
     # Redirect back to the user page
     return redirect(url_for('user_page', username=username))
 
+
+@app.route('/filter_recipes/<username>', methods=['POST'])
+def filter_recipes(username):
     
+# filter the recipes on the browsing page based on selections made by the user
+    
+    # Create variables to hold the data taken from the filter form
+    
+    # Check to see if the cuisine and allergens form are not equal to 'any', if so 
+    # create a variable with the form data, else do not create variable
+    if request.form.get('cuisine') != 'all':
+        cuisine_filter = request.form.get('cuisine')
+    if request.form.get('allergens') != 'all':
+        allergens_filter = request.form.get('allergens')
+    
+    # Split the value passed in from the form in order to use as part of the range
+    time_split = request.form.get('time').split()
+    servings_split = request.form.get('servings').split()
+    calories_split = request.form.get('calories').split()
+    
+    # Pass the split form data as integers to the variables to be used for the mongoDB find
+    servings_filter = { '$gte': int(servings_split[0]), '$lte': int(servings_split[1])}
+    time_filter = { '$gte': int(time_split[0]), '$lte': int(time_split[1])}
+    calories_filter = { '$gte': int(calories_split[0]), '$lte': int(calories_split[1])}
+    
+    # Create new list of recipes based on the filter options
+    # If 'any' was selected for allergens or cuisine, do not include in query parameters
+    
+    if (request.form.get('allergens') != 'all') and (request.form.get('cuisine') == 'all'):
+        recipes = mongo.db.recipes.find(
+        {
+            'allergen': allergens_filter, 
+            'servings': servings_filter, 
+            'time': time_filter, 
+            'calories': calories_filter
+        })
+    elif (request.form.get('allergens') == 'all') and (request.form.get('cuisine') != 'all'):
+        recipes = mongo.db.recipes.find(
+        {
+            'cuisine': cuisine_filter, 
+            'servings': servings_filter, 
+            'time': time_filter, 
+            'calories': calories_filter
+        })
+    elif (request.form.get('allergens') != 'all') and (request.form.get('cuisine') != 'all'):
+        recipes = mongo.db.recipes.find(
+        {
+            'cuisine': cuisine_filter, 
+            'allergen': allergens_filter, 
+            'servings': servings_filter, 
+            'time': time_filter, 
+            'calories': calories_filter
+        })
+    else: 
+        recipes = mongo.db.recipes.find(
+        {
+            'servings': servings_filter, 
+            'time': time_filter, 
+            'calories': calories_filter
+        })
+    
+    # Store collections for cuisine and allergens in variables to pass to browse.html
+    allergens = mongo.db.allergens.find()
+    cuisine = mongo.db.cuisine.find()
+    # Redirect back to the browse page, with the new filtered recipe list
+    return render_template('browse.html', username=username, 
+                                        allergens=allergens, 
+                                        cuisine=cuisine, 
+                                        recipes=recipes)
+
+  
 # Get the IP address and PORT number from the os and run the app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
