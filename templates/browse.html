@@ -9,10 +9,10 @@
 <div class="row">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header"><i class="material-icons">search</i> Filter
+            <div class="collapsible-header"><i class="material-icons">keyboard_arrow_down</i> Filter
             </div>
             <div class="collapsible-body">
-                <form action="{{url_for('filter_recipes', username=username)}}" method="POST" >
+                <form action="{{url_for('filter_recipes', username=username)}}" method="POST">
                     <div class="row">
                         <div class="col s12">
                             <!--Cuisine filter-->
@@ -21,7 +21,11 @@
                                     <select id="cuisine" name="cuisine">
                                     <option value="all" selected>All</option>
                                     {% for c in cuisine %}
+                                    {% if active_filters and active_filters.cuisine.lower() == c.name %}
+                                    <option selected value="{{c.name}}">{{c.name.capitalize()}}</option>
+                                    {% else %}
                                     <option value="{{c.name}}">{{c.name.capitalize()}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                                     <label for="cuisine">Cuisine</label>
@@ -33,7 +37,11 @@
                                     <select id="allergens" name="allergens">
                                     <option value="all" selected>All</option>
                                     {% for allergen in allergens %}
+                                    {% if active_filters and active_filters.allergens.lower() == allergen.name%}
+                                    <option selected value="{{allergen.name}}">{{allergen.name.capitalize()}}</option>
+                                    {% else %}
                                     <option value="{{allergen.name}}">{{allergen.name.capitalize()}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                                     <label for="allergens">Allergens</label>
@@ -43,13 +51,14 @@
                             <div class="col s4">
                                 <div class="input-field col s12">
                                     <select id="time" name="time">
-                                    <option value="0 180" selected>Any</option>
-                                    <option value="1 30">1-30</option>
-                                    <option value="31 60">31-60</option>
-                                    <option value="61 90">61-90</option>
-                                    <option value="91 120">91-120</option>
-                                    <option value="121 150">121-150</option>
-                                    <option value="151 180">151-180</option>
+                                        <option value="0-180" selected>Any</option>
+                                        {% for time in time_options %}
+                                        {% if active_filters and active_filters.time == time %}
+                                        <option selected value="{{time}}">{{time}}</option>
+                                        {% else %}
+                                        <option value="{{time}}">{{time}}</option>
+                                        {% endif %}
+                                        {% endfor %}
                                 </select>
                                     <label for="time">Time (mins)</label>
                                 </div>
@@ -61,11 +70,14 @@
                         <div class="col s6">
                             <div class="input-field col s12">
                                 <select id="servings" name="servings">
-                                    <option value="0 20" selected>Any</option>
-                                    <option value="1 5">1-5</option>
-                                    <option value="6 10">6-10</option>
-                                    <option value="11 15">11-15</option>
-                                    <option value="16 20">16-20</option>
+                                    <option value="0-20" selected>Any</option>
+                                    {% for servings in servings_options%}
+                                    {% if active_filters and active_filters.servings == servings %}
+                                    <option selected value="{{servings}}">{{servings}}</option>
+                                    {% else %}
+                                    <option value="{{servings}}">{{servings}}</option>
+                                    {% endif %}
+                                    {% endfor %}
                                 </select>
                                 <label for="servings">Servings</label>
                             </div>
@@ -74,11 +86,14 @@
                         <div class="col s6">
                             <div class="input-field col s12">
                                 <select id="calories" name="calories">
-                                    <option value="0 1000" selected>Any</option>
-                                    <option value="1 250">1-250</option>
-                                    <option value="251 500">251-500</option>
-                                    <option value="501 750">501-750</option>
-                                    <option value="751 1000">751-1000</option>
+                                    <option value="0-1000" selected>Any</option>
+                                    {% for calories in calories_options%}
+                                    {% if active_filters and active_filters.calories == calories %}
+                                    <option selected value="{{calories}}">{{calories}}</option>
+                                    {% else %}
+                                    <option value="{{calories}}">{{calories}}</option>
+                                    {% endif %}
+                                    {% endfor %}
                                 </select>
                                 <label for="calories">Calories (per serving)</label>
                             </div>
@@ -89,6 +104,9 @@
                             <button class="waves-effect waves-light btn" type="submit" name="action">Filter
                                 <i class="material-icons left">search</i>
                             </button>
+                        </div>
+                        <div class="col s3">
+                            <a href="{{url_for('browse', username=username)}}" class="waves-effect waves-light btn red"><i class="material-icons left">delete</i>Remove</a>
                         </div>
                     </div>
                 </form>

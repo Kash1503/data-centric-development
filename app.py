@@ -82,12 +82,20 @@ def browse(username):
     allergens = mongo.db.allergens.find()
     cuisine = mongo.db.cuisine.find()
     
+    # Create filter options to pass to browse.html
+    time_options = ['1-30', '31-60', '61-90', '91-120', '121-150', '151-180']
+    servings_options = ['1-5', '6-10', '11-15', '16-20']
+    calories_options = ['1-250', '251-500', '501-750', '751-1000']
+    
     # Render the browse.html page and pass in data, keeping the 
     # username to pass back to user page if needed
     return render_template('browse.html', username=username,
                                             recipes=recipes,
                                             allergens=allergens,
-                                            cuisine=cuisine)
+                                            cuisine=cuisine,
+                                            time_options=time_options,
+                                            servings_options=servings_options,
+                                            calories_options=calories_options)
 
 
 @app.route('/recipe_details/<username>/<recipe_id>')
@@ -235,17 +243,17 @@ def filter_recipes(username):
     
     # Create variables to hold the data taken from the filter form
     
+    # Split the value passed in from the form in order to use as part of the range
+    time_split = request.form.get('time').split('-')
+    servings_split = request.form.get('servings').split('-')
+    calories_split = request.form.get('calories').split('-')
+    
     # Check to see if the cuisine and allergens form are not equal to 'any', if so 
     # create a variable with the form data, else do not create variable
     if request.form.get('cuisine') != 'all':
         cuisine_filter = request.form.get('cuisine')
     if request.form.get('allergens') != 'all':
         allergens_filter = request.form.get('allergens')
-    
-    # Split the value passed in from the form in order to use as part of the range
-    time_split = request.form.get('time').split()
-    servings_split = request.form.get('servings').split()
-    calories_split = request.form.get('calories').split()
     
     # Pass the split form data as integers to the variables to be used for the mongoDB find
     servings_filter = { '$gte': int(servings_split[0]), '$lte': int(servings_split[1])}
@@ -254,7 +262,6 @@ def filter_recipes(username):
     
     # Create new list of recipes based on the filter options
     # If 'any' was selected for allergens or cuisine, do not include in query parameters
-    
     if (request.form.get('allergens') != 'all') and (request.form.get('cuisine') == 'all'):
         recipes = mongo.db.recipes.find(
         {
@@ -288,14 +295,33 @@ def filter_recipes(username):
             'calories': calories_filter
         })
     
+    # Create a dict of the active filters to pass to the browse.html page
+    active_filters = {
+        'time': request.form.get('time'),
+        'servings': request.form.get('servings'),
+        'calories': request.form.get('calories'),
+        'cuisine': request.form.get('cuisine'),
+        'allergens': request.form.get('allergens')
+    }
+    
     # Store collections for cuisine and allergens in variables to pass to browse.html
     allergens = mongo.db.allergens.find()
     cuisine = mongo.db.cuisine.find()
+    
+    # Create filter options to pass to browse.html
+    time_options = ['1-30', '31-60', '61-90', '91-120', '121-150', '151-180']
+    servings_options = ['1-5', '6-10', '11-15', '16-20']
+    calories_options = ['1-250', '251-500', '501-750', '751-1000']
+    
     # Redirect back to the browse page, with the new filtered recipe list
     return render_template('browse.html', username=username, 
                                         allergens=allergens, 
                                         cuisine=cuisine, 
-                                        recipes=recipes)
+                                        recipes=recipes,
+                                        time_options=time_options,
+                                        servings_options=servings_options,
+                                        calories_options=calories_options,
+                                        active_filters=active_filters)
 
   
 # Get the IP address and PORT number from the os and run the app
