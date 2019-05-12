@@ -66,7 +66,7 @@ def user_page(username):
     user_data = mongo.db.user.find_one({'username': username.lower()})
     
     # Search for the recipes created by the user and store information in a variable
-    recipes = mongo.db.recipes.find({'user': username.lower()})
+    recipes = mongo.db.recipes.find({'user': username.lower()}).sort([('upvotes', -1), ('views', -1)])
     
     return render_template('user.html', username=username, user_data=user_data, recipes=recipes)
     
@@ -78,7 +78,7 @@ def browse(username):
 # cuisine collections for use with filtering
 
     # Store the searches in variables
-    recipes = mongo.db.recipes.find()
+    recipes = mongo.db.recipes.find().sort([('upvotes', -1), ('views', -1)])
     allergens = mongo.db.allergens.find()
     cuisine = mongo.db.cuisine.find()
     
@@ -98,8 +98,8 @@ def browse(username):
                                             calories_options=calories_options)
 
 
-@app.route('/recipe_details/<username>/<recipe_id>')
-def recipe_details(username, recipe_id):
+@app.route('/recipe_details/<username>/<source>/<recipe_id>')
+def recipe_details(username, source, recipe_id):
     
 # Using the recipe ID, display the recipe details page and pass
 # the data in. Also pass username to pass back to user if needed.
@@ -112,7 +112,7 @@ def recipe_details(username, recipe_id):
     # Store recipe in new variable with update 'views' field to pass to render template
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     # Render the recipe details page, passing in the relevant data
-    return render_template('recipedetails.html', username=username, recipe=recipe)
+    return render_template('recipedetails.html', username=username, source=source, recipe=recipe)
 
 # Functions, queries and redirects
 
@@ -269,7 +269,7 @@ def filter_recipes(username):
             'servings': servings_filter, 
             'time': time_filter, 
             'calories': calories_filter
-        })
+        }).sort([('upvotes', -1), ('views', -1)])
     elif (request.form.get('allergens') == 'all') and (request.form.get('cuisine') != 'all'):
         recipes = mongo.db.recipes.find(
         {
@@ -277,7 +277,7 @@ def filter_recipes(username):
             'servings': servings_filter, 
             'time': time_filter, 
             'calories': calories_filter
-        })
+        }).sort([('upvotes', -1), ('views', -1)])
     elif (request.form.get('allergens') != 'all') and (request.form.get('cuisine') != 'all'):
         recipes = mongo.db.recipes.find(
         {
@@ -286,14 +286,14 @@ def filter_recipes(username):
             'servings': servings_filter, 
             'time': time_filter, 
             'calories': calories_filter
-        })
+        }).sort([('upvotes', -1), ('views', -1)])
     else: 
         recipes = mongo.db.recipes.find(
         {
             'servings': servings_filter, 
             'time': time_filter, 
             'calories': calories_filter
-        })
+        }).sort([('upvotes', -1), ('views', -1)])
     
     # Create a dict of the active filters to pass to the browse.html page
     active_filters = {
@@ -324,6 +324,21 @@ def filter_recipes(username):
                                         active_filters=active_filters)
 
   
+@app.route('/upvote/<username>/<source>/<recipe_id>')
+def upvote(username, source, recipe_id):
+
+# When the 'like' button is pressed, add one to the total upvotes for the recipe
+
+    # Store the data from mongoDB in variables
+    recipe_upvotes = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    # Find the relevant recipe and add one to the total upvotes
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { '$set': {'upvotes': recipe_upvotes['upvotes'] + 1}})
+    # Store the updated recipe data in a new variable, with the updated upvotes
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    # return back to the recipe details page, with the updated upvotes
+    return render_template('recipedetails.html', username=username, source=source, recipe=recipe)
+    
+    
 # Get the IP address and PORT number from the os and run the app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
