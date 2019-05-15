@@ -43,16 +43,17 @@ def add_recipe(username):
                                             cuisine=mongo.db.cuisine.find())
     
 
-@app.route('/edit_recipe/<username>/<recipe_id>')
+@app.route('/edit_recipe/<username>/<source>/<recipe_id>')
 
 # Render the 'editrecipe.html' template and pass in the username from user.html
 # and pass in the cuisine and allergen collections
 
-def edit_recipe(username, recipe_id):
+def edit_recipe(username, source, recipe_id):
     return render_template('editrecipe.html', username=username, 
                                             allergens=mongo.db.allergens.find(), 
                                             cuisine=mongo.db.cuisine.find(),
-                                            recipe=mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}))
+                                            recipe=mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}),
+                                            source=source)
 
 
 @app.route('/user_page/<username>')

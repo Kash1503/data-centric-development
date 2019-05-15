@@ -1,0 +1,197 @@
+// Fonts
+// Set varibales
+$background: #edeae5;
+$main-text: #026670;
+$section-color: #e1edef;
+$left-section-color: #f1d1d1;
+
+// Colors
+body {
+    background-color: $background;
+    color: $main-text;
+}
+
+.input-field label {
+    color: $main-text;
+}
+
+input[type=text]:not(.browser-default) {
+    border-color: $main-text;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]){
+    border-color: $main-text;
+    border-bottom: 1px solid $main-text;
+    box-shadow: 0 1px 0 0 $main-text;
+    color: $main-text;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])+label {
+    color: $main-text;
+    border-color: $main-text;
+}
+
+.input-field
+.prefix.active {
+    color: $main-text;
+}
+
+nav .brand-logo{
+    color: $main-text;
+}
+
+.btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: $main-text;
+    text-align: center;
+    padding: 0 10px 0 0;
+}
+
+nav ul a {
+    color: $main-text;
+    margin-right: 15px;
+}
+
+input[type=range]{
+    border-color: $section-color;
+    top: 10px;
+}
+
+input[type=range]+.thumb{
+    background-color: $main-text;
+    color: $main-text;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  background-color: $main-text;
+}
+
+input[type=range]::-moz-range-thumb {
+  background-color: $main-text;
+}
+
+input[type=range]::-ms-thumb {
+  background-color: $main-text;
+}
+
+textarea.materialize-textarea:focus:not([readonly]){
+    border-bottom: 1px solid $main-text;
+    box-shadow: 0 1px 0 0 $main-text;
+    border-color: $main-text;
+}
+
+textarea.materialize-textarea:focus:not([readonly])+label{
+    color: $main-text;
+}
+
+textarea.materialize-textarea{
+    border-bottom: 1px solid $main-text;
+}
+
+// Utility classes
+
+.screen-height {
+    min-height: 60vh;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+}
+
+.page-heading {
+    text-align: center;
+    color: $main-text;
+}
+
+.section-spacing {
+    margin-top: 50px;
+}
+
+.section-box {
+    background-color: $section-color;
+    border-radius: 5px;
+    border: 1px solid $main-text;
+    width: 95% auto;
+    padding-left: 10px;
+}
+
+.left-section-box {
+    background-color: $left-section-color;
+    border-radius: 5px;
+    border: 1px solid $main-text;
+    width: 95% auto;
+    padding-left: 10px;
+    color: $main-text;
+}
+
+.btn-left{
+    color: $main-text;
+}
+
+.btn-margin{
+    margin-bottom: 25px;
+}
+
+.range-box{
+    width: 85%;
+    margin: 0 auto;
+}
+
+.form-section{
+    width: 80%;
+    display: inline-block;
+    text-align: left;
+}
+
+.form-top{
+    margin-top: 20px;
+}
+
+// Nav
+
+.nav-wrapper {
+    background-color: $background;
+}
+
+.brand-logo {
+    margin-left: 40px;
+    color: $main-text;
+}
+
+// Footer
+
+.footer {
+    height: 75px;
+    background-color: $background;
+    padding: 0;
+}
+
+.footer-margin {
+    margin-top: 25px;
+}
+
+.footer-text {
+    font-size: 15px;
+    color: $main-text;
+}
+
+// Browse page
+
+.collection
+.collection-item{
+    background-color: $section-color;
+    border: none;
+}
+
+.collection
+a.collection-item{
+    color: $main-text;
+}
+
+.collection{
+    border: none;
+}

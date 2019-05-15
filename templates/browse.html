@@ -1,15 +1,15 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="row">
-    <div class="col s9 offset-s3">
+<div class="row section-spacing">
+    <div class="col s12 page-heading">
         <h4>Browse our recipes!</h4>
     </div>
 </div>
 <!--Filter options-->
 <div class="row">
-    <ul class="collapsible" data-collapsible="accordion">
+    <ul class="collapsible z-depth-0" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header"><i class="material-icons">keyboard_arrow_down</i> Filter
+            <div class="collapsible-header left-section-box"><i class="material-icons">keyboard_arrow_down</i> Filter
             </div>
             <div class="collapsible-body">
                 <form action="{{url_for('filter_recipes', username=username)}}" method="POST">
@@ -101,12 +101,12 @@
                     </div>
                     <div class="row">
                         <div class="col s3">
-                            <button class="waves-effect waves-light btn" type="submit" name="action">Filter
+                            <button class="waves-effect waves-light btn z-depth-0" type="submit" name="action">Filter
                                 <i class="material-icons left">search</i>
                             </button>
                         </div>
                         <div class="col s3">
-                            <a href="{{url_for('browse', username=username)}}" class="waves-effect waves-light btn red"><i class="material-icons left">delete</i>Remove</a>
+                            <a href="{{url_for('browse', username=username)}}" class="waves-effect waves-light btn z-depth-0"><i class="material-icons left">delete</i>Remove Filter</a>
                         </div>
                     </div>
                 </form>
@@ -116,17 +116,19 @@
 </div>
 <div class="row">
     <div class="col s12">
-        <div class="collection">
+        <div class="section-box">
+            <div class="collection">
 
-            {% if recipes.count() > 0 %} {% for recipe in recipes %}
-            <a href="{{url_for('recipe_details', username=username, source='browse', recipe_id=recipe._id)}}" class="collection-item">
+                {% if recipes.count() > 0 %} {% for recipe in recipes %}
+                <a href="{{url_for('recipe_details', username=username, source='browse', recipe_id=recipe._id)}}" class="collection-item">
                 {{recipe.title}}
                 <i class="material-icons">thumb_up</i>{{recipe.upvotes}}
                 <i class="material-icons">remove_red_eye</i>{{recipe.views}}
             </a> {% endfor %} {% else %}
-            <div class="collection-item">Oh no! There's no recipes in the book!
-                <a href="{{url_for('add_recipe', username=username.lower())}}">Be the first to add a recipe here!</a></div>
-            {% endif %}
+                <div class="collection-item">Oh no! There's no recipes in the book!
+                    <a href="{{url_for('add_recipe', username=username.lower())}}">Be the first to add a recipe here!</a></div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

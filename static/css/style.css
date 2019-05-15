@@ -1,0 +1,146 @@
+body {
+  background-color: #edeae5;
+  color: #026670; }
+
+.input-field label {
+  color: #026670; }
+
+input[type=text]:not(.browser-default) {
+  border-color: #026670; }
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-color: #026670;
+  border-bottom: 1px solid #026670;
+  box-shadow: 0 1px 0 0 #026670;
+  color: #026670; }
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label {
+  color: #026670;
+  border-color: #026670; }
+
+.input-field
+.prefix.active {
+  color: #026670; }
+
+nav .brand-logo {
+  color: #026670; }
+
+.btn {
+  background-color: transparent;
+  color: #026670;
+  text-align: center;
+  padding: 0 10px 0 0; }
+
+nav ul a {
+  color: #026670;
+  margin-right: 15px; }
+
+input[type=range] {
+  border-color: #e1edef;
+  top: 10px; }
+
+input[type=range] + .thumb {
+  background-color: #026670;
+  color: #026670; }
+
+input[type=range]::-webkit-slider-thumb {
+  background-color: #026670; }
+
+input[type=range]::-moz-range-thumb {
+  background-color: #026670; }
+
+input[type=range]::-ms-thumb {
+  background-color: #026670; }
+
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #026670;
+  box-shadow: 0 1px 0 0 #026670;
+  border-color: #026670; }
+
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #026670; }
+
+textarea.materialize-textarea {
+  border-bottom: 1px solid #026670; }
+
+.screen-height {
+  min-height: 60vh; }
+
+.no-margin {
+  margin: 0; }
+
+.container {
+  width: 90%; }
+
+.page-heading {
+  text-align: center;
+  color: #026670; }
+
+.section-spacing {
+  margin-top: 50px; }
+
+.section-box {
+  background-color: #e1edef;
+  border-radius: 5px;
+  border: 1px solid #026670;
+  width: 95% auto;
+  padding-left: 10px; }
+
+.left-section-box {
+  background-color: #f1d1d1;
+  border-radius: 5px;
+  border: 1px solid #026670;
+  width: 95% auto;
+  padding-left: 10px;
+  color: #026670; }
+
+.btn-left {
+  color: #026670; }
+
+.btn-margin {
+  margin-bottom: 25px; }
+
+.range-box {
+  width: 85%;
+  margin: 0 auto; }
+
+.form-section {
+  width: 80%;
+  display: inline-block;
+  text-align: left; }
+
+.form-top {
+  margin-top: 20px; }
+
+.nav-wrapper {
+  background-color: #edeae5; }
+
+.brand-logo {
+  margin-left: 40px;
+  color: #026670; }
+
+.footer {
+  height: 75px;
+  background-color: #edeae5;
+  padding: 0; }
+
+.footer-margin {
+  margin-top: 25px; }
+
+.footer-text {
+  font-size: 15px;
+  color: #026670; }
+
+.collection
+.collection-item {
+  background-color: #e1edef;
+  border: none; }
+
+.collection
+a.collection-item {
+  color: #026670; }
+
+.collection {
+  border: none; }
+
+/*# sourceMappingURL=style.css.map */
