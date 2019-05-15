@@ -30,7 +30,11 @@
             </div>
         </div>
         {% for message in get_flashed_messages()%} 
-        {{ message }} 
+        <div class="row">
+            <div class="col s6 offset-s3 flash-message">
+                {{ message }}
+            </div>
+        </div>
         {% endfor %}
         <div class="row">
             <form action="{{url_for('get_user')}}" method="POST" class="col s6 offset-s3 section-box">

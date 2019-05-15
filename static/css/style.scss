@@ -3,7 +3,9 @@
 $background: #edeae5;
 $main-text: #026670;
 $section-color: #e1edef;
+$section-border: #c3d3d6;
 $left-section-color: #f1d1d1;
+$left-section-border: #d4b4b4;
 
 // Colors
 body {
@@ -114,7 +116,7 @@ textarea.materialize-textarea{
 .section-box {
     background-color: $section-color;
     border-radius: 5px;
-    border: 1px solid $main-text;
+    border: 1px solid $section-border;
     width: 95% auto;
     padding-left: 10px;
 }
@@ -122,7 +124,7 @@ textarea.materialize-textarea{
 .left-section-box {
     background-color: $left-section-color;
     border-radius: 5px;
-    border: 1px solid $main-text;
+    border: 1px solid $left-section-border;
     width: 95% auto;
     padding-left: 10px;
     color: $main-text;
@@ -179,12 +181,22 @@ textarea.materialize-textarea{
     color: $main-text;
 }
 
-// Browse page
+//Login page
+
+.flash-message{
+    font-size: 20px;
+    background-color: $left-section-color;
+    border: 1px solid $left-section-border;
+    border-radius: 5px;
+}
+
+// User and Browse Page
 
 .collection
 .collection-item{
     background-color: $section-color;
-    border: none;
+    padding: 0 5px;
+    border-bottom: 1px solid $section-border;
 }
 
 .collection
@@ -194,4 +206,33 @@ a.collection-item{
 
 .collection{
     border: none;
+    margin: 0;
+}
+
+
+.recipe-entry{
+    margin: 0;
+}
+
+.recipe-title{
+    font-size: 17px;
+    text-align: center;
+}
+
+.recipe-info{
+    font-size: 13px;
+    text-align: center;
+}
+
+.recipe-icon{
+    font-size: 15px;
+    text-align: center;
+}
+
+.recipe-box {
+    background-color: $section-color;
+    border-radius: 5px;
+    border: 1px solid $section-border;
+    width: 95% auto;
+    padding: 0 !important;
 }

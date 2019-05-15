@@ -18,14 +18,30 @@
             <i class="material-icons left">add_circle_outline</i>New Recipe</a>
         </div>
     </div>
-    <div class="col s8 section-box">
+    <div class="col s8 recipe-box">
         <div class="collection">
 
             {% if recipes.count() > 0 %} {% for recipe in recipes %}
             <a href="{{url_for('recipe_details', username=username, source='user_page', recipe_id=recipe._id)}}" class="collection-item">
-                {{recipe.title}}
-                <i class="material-icons">thumb_up</i>{{recipe.upvotes}}
-                <i class="material-icons">remove_red_eye</i>{{recipe.views}}
+                <div class="row recipe-entry">
+                    <div class="valign-wrapper center-align">
+                        <div class="col s4 recipe-title">
+                            <p><i class="material-icons recipe-icon">fastfood</i> {{recipe.title}}</p>
+                        </div>
+                        <div class="col s3 recipe-info">
+                            <p><i class="material-icons recipe-icon">timer</i> {{recipe.time}} min(s)</p>
+                        </div>
+                        <div class="col s3 recipe-info">
+                            <p><i class="material-icons recipe-icon">person</i> {{recipe.servings}} serving(s)</p>
+                        </div>
+                        <div class="col s1">
+                            <i class="material-icons recipe-icon">thumb_up</i> {{recipe.upvotes}}
+                        </div>
+                        <div class="col s1">
+                            <i class="material-icons recipe-icon">remove_red_eye</i> {{recipe.views}}
+                        </div>
+                    </div>
+                </div>
             </a> {% endfor %} {% else %}
             <div class="collection-item">You don't have any recipes! Why not
                 <a href="{{url_for('add_recipe', username=user_data.username.lower())}}">create one now?</a></div>

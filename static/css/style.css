@@ -82,14 +82,14 @@ textarea.materialize-textarea {
 .section-box {
   background-color: #e1edef;
   border-radius: 5px;
-  border: 1px solid #026670;
+  border: 1px solid #c3d3d6;
   width: 95% auto;
   padding-left: 10px; }
 
 .left-section-box {
   background-color: #f1d1d1;
   border-radius: 5px;
-  border: 1px solid #026670;
+  border: 1px solid #d4b4b4;
   width: 95% auto;
   padding-left: 10px;
   color: #026670; }
@@ -131,16 +131,46 @@ textarea.materialize-textarea {
   font-size: 15px;
   color: #026670; }
 
+.flash-message {
+  font-size: 20px;
+  background-color: #f1d1d1;
+  border: 1px solid #d4b4b4;
+  border-radius: 5px; }
+
 .collection
 .collection-item {
   background-color: #e1edef;
-  border: none; }
+  padding: 0 5px;
+  border-bottom: 1px solid #c3d3d6; }
 
 .collection
 a.collection-item {
   color: #026670; }
 
 .collection {
-  border: none; }
+  border: none;
+  margin: 0; }
+
+.recipe-entry {
+  margin: 0; }
+
+.recipe-title {
+  font-size: 17px;
+  text-align: center; }
+
+.recipe-info {
+  font-size: 13px;
+  text-align: center; }
+
+.recipe-icon {
+  font-size: 15px;
+  text-align: center; }
+
+.recipe-box {
+  background-color: #e1edef;
+  border-radius: 5px;
+  border: 1px solid #c3d3d6;
+  width: 95% auto;
+  padding: 0 !important; }
 
 /*# sourceMappingURL=style.css.map */
