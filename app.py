@@ -65,11 +65,25 @@ def user_page(username):
     # Search for the user in user collection using the username passed 
     # into user_page function and store returned dict in a variable
     user_data = mongo.db.user.find_one({'username': username.lower()})
+    allergens = mongo.db.allergens.find()
+    cuisine = mongo.db.cuisine.find()
+    
+    # Create filter options to pass to browse.html
+    time_options = ['1-30', '31-60', '61-90', '91-120', '121-150', '151-180']
+    servings_options = ['1-5', '6-10', '11-15', '16-20']
+    calories_options = ['1-250', '251-500', '501-750', '751-1000']
     
     # Search for the recipes created by the user and store information in a variable
     recipes = mongo.db.recipes.find({'user': username.lower()}).sort([('upvotes', -1), ('views', -1)])
     
-    return render_template('user.html', username=username, user_data=user_data, recipes=recipes)
+    return render_template('user.html', username=username, 
+                                        user_data=user_data, 
+                                        recipes=recipes,
+                                        allergens=allergens,
+                                        cuisine=cuisine,
+                                        time_options=time_options,
+                                        servings_options=servings_options,
+                                        calories_options=calories_options)
     
 
 @app.route('/browse/<username>')
@@ -237,8 +251,8 @@ def delete_recipe(username, recipe_id):
     return redirect(url_for('user_page', username=username))
 
 
-@app.route('/filter_recipes/<username>', methods=['POST'])
-def filter_recipes(username):
+@app.route('/filter_recipes/<username>/<source>', methods=['POST'])
+def filter_recipes(username, source):
     
 # filter the recipes on the browsing page based on selections made by the user
     
@@ -261,40 +275,80 @@ def filter_recipes(username):
     time_filter = { '$gte': int(time_split[0]), '$lte': int(time_split[1])}
     calories_filter = { '$gte': int(calories_split[0]), '$lte': int(calories_split[1])}
     
-    # Create new list of recipes based on the filter options
-    # If 'any' was selected for allergens or cuisine, do not include in query parameters
-    if (request.form.get('allergens') != 'all') and (request.form.get('cuisine') == 'all'):
-        recipes = mongo.db.recipes.find(
-        {
-            'allergen': allergens_filter, 
-            'servings': servings_filter, 
-            'time': time_filter, 
-            'calories': calories_filter
-        }).sort([('upvotes', -1), ('views', -1)])
-    elif (request.form.get('allergens') == 'all') and (request.form.get('cuisine') != 'all'):
-        recipes = mongo.db.recipes.find(
-        {
-            'cuisine': cuisine_filter, 
-            'servings': servings_filter, 
-            'time': time_filter, 
-            'calories': calories_filter
-        }).sort([('upvotes', -1), ('views', -1)])
-    elif (request.form.get('allergens') != 'all') and (request.form.get('cuisine') != 'all'):
-        recipes = mongo.db.recipes.find(
-        {
-            'cuisine': cuisine_filter, 
-            'allergen': allergens_filter, 
-            'servings': servings_filter, 
-            'time': time_filter, 
-            'calories': calories_filter
-        }).sort([('upvotes', -1), ('views', -1)])
-    else: 
-        recipes = mongo.db.recipes.find(
-        {
-            'servings': servings_filter, 
-            'time': time_filter, 
-            'calories': calories_filter
-        }).sort([('upvotes', -1), ('views', -1)])
+    if source == 'browse.html':
+        # Create new list of recipes based on the filter options
+        # If 'any' was selected for allergens or cuisine, do not include in query parameters
+        if (request.form.get('allergens') != 'all') and (request.form.get('cuisine') == 'all'):
+            recipes = mongo.db.recipes.find(
+            {
+                'allergen': allergens_filter, 
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+        elif (request.form.get('allergens') == 'all') and (request.form.get('cuisine') != 'all'):
+            recipes = mongo.db.recipes.find(
+            {
+                'cuisine': cuisine_filter, 
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+        elif (request.form.get('allergens') != 'all') and (request.form.get('cuisine') != 'all'):
+            recipes = mongo.db.recipes.find(
+            {
+                'cuisine': cuisine_filter, 
+                'allergen': allergens_filter, 
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+        else: 
+            recipes = mongo.db.recipes.find(
+            {
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+    else:
+        # Create new list of recipes based on the filter options and username
+        # If 'any' was selected for allergens or cuisine, do not include in query parameters
+        if (request.form.get('allergens') != 'all') and (request.form.get('cuisine') == 'all'):
+            recipes = mongo.db.recipes.find(
+            {
+                'user': username,
+                'allergen': allergens_filter, 
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+        elif (request.form.get('allergens') == 'all') and (request.form.get('cuisine') != 'all'):
+            recipes = mongo.db.recipes.find(
+            {
+                'user': username,
+                'cuisine': cuisine_filter, 
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+        elif (request.form.get('allergens') != 'all') and (request.form.get('cuisine') != 'all'):
+            recipes = mongo.db.recipes.find(
+            {
+                'user': username,
+                'cuisine': cuisine_filter, 
+                'allergen': allergens_filter, 
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
+        else: 
+            recipes = mongo.db.recipes.find(
+            {
+                'user': username,
+                'servings': servings_filter, 
+                'time': time_filter, 
+                'calories': calories_filter
+            }).sort([('upvotes', -1), ('views', -1)])
     
     # Create a dict of the active filters to pass to the browse.html page
     active_filters = {
@@ -314,15 +368,22 @@ def filter_recipes(username):
     servings_options = ['1-5', '6-10', '11-15', '16-20']
     calories_options = ['1-250', '251-500', '501-750', '751-1000']
     
+    if source == 'user.html':
+        # Store the user data in a variable
+        user_data = mongo.db.user.find_one({'username': username.lower()})
+    else:
+        user_data = None
+    
     # Redirect back to the browse page, with the new filtered recipe list
-    return render_template('browse.html', username=username, 
-                                        allergens=allergens, 
-                                        cuisine=cuisine, 
-                                        recipes=recipes,
-                                        time_options=time_options,
-                                        servings_options=servings_options,
-                                        calories_options=calories_options,
-                                        active_filters=active_filters)
+    return render_template(source, username=username, 
+                                    user_data=user_data,
+                                    allergens=allergens, 
+                                    cuisine=cuisine, 
+                                    recipes=recipes,
+                                    time_options=time_options,
+                                    servings_options=servings_options,
+                                    calories_options=calories_options,
+                                    active_filters=active_filters)
 
   
 @app.route('/upvote/<username>/<source>/<recipe_id>')

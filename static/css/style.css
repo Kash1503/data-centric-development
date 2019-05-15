@@ -25,12 +25,6 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 nav .brand-logo {
   color: #026670; }
 
-.btn {
-  background-color: transparent;
-  color: #026670;
-  text-align: center;
-  padding: 0 10px 0 0; }
-
 nav ul a {
   color: #026670;
   margin-right: 15px; }
@@ -94,12 +88,6 @@ textarea.materialize-textarea {
   padding-left: 10px;
   color: #026670; }
 
-.btn-left {
-  color: #026670; }
-
-.btn-margin {
-  margin-bottom: 25px; }
-
 .range-box {
   width: 85%;
   margin: 0 auto; }
@@ -111,6 +99,38 @@ textarea.materialize-textarea {
 
 .form-top {
   margin-top: 20px; }
+
+.btn {
+  background-color: transparent;
+  color: #026670;
+  text-align: center;
+  padding: 0 10px;
+  border: 1px solid #c3d3d6; }
+
+.btn-left {
+  color: #026670;
+  border: 1px solid #d4b4b4; }
+
+.btn-margin {
+  margin-bottom: 25px; }
+
+.btn-bar {
+  height: 50px; }
+
+.btn-details {
+  color: #026670;
+  margin-top: 6px;
+  border: 1px solid #d4b4b4; }
+
+.btn-section {
+  color: #026670;
+  border: 1px solid #c3d3d6; }
+
+.del-btn {
+  border: 1px solid #e04444; }
+
+.del-color {
+  color: #e04444; }
 
 .nav-wrapper {
   background-color: #edeae5; }

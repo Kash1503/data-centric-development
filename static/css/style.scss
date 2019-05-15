@@ -6,6 +6,7 @@ $section-color: #e1edef;
 $section-border: #c3d3d6;
 $left-section-color: #f1d1d1;
 $left-section-border: #d4b4b4;
+$del-btn: #e04444;
 
 // Colors
 body {
@@ -40,13 +41,6 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label {
 
 nav .brand-logo{
     color: $main-text;
-}
-
-.btn {
-    background-color: rgba(0, 0, 0, 0);
-    color: $main-text;
-    text-align: center;
-    padding: 0 10px 0 0;
 }
 
 nav ul a {
@@ -130,14 +124,6 @@ textarea.materialize-textarea{
     color: $main-text;
 }
 
-.btn-left{
-    color: $main-text;
-}
-
-.btn-margin{
-    margin-bottom: 25px;
-}
-
 .range-box{
     width: 85%;
     margin: 0 auto;
@@ -151,6 +137,48 @@ textarea.materialize-textarea{
 
 .form-top{
     margin-top: 20px;
+}
+
+// Buttons
+
+.btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: $main-text;
+    text-align: center;
+    padding: 0 10px;
+    border: 1px solid $section-border;
+}
+
+.btn-left{
+    color: $main-text;
+    border: 1px solid $left-section-border;
+}
+
+.btn-margin{
+    margin-bottom: 25px;
+}
+
+.btn-bar{
+    height: 50px;
+}
+
+.btn-details{
+    color: $main-text;
+    margin-top: 6px;
+    border: 1px solid $left-section-border;
+}
+
+.btn-section{
+    color: $main-text;
+    border: 1px solid $section-border;
+}
+
+.del-btn{
+    border: 1px solid $del-btn;
+}
+
+.del-color{
+    color: $del-btn;
 }
 
 // Nav

@@ -1,16 +1,16 @@
 {% extends 'base.html' %} {% block content %}
-<div class="row left-section-box">
+<div class="row left-section-box btn-bar">
     <div class="col s3">
-        <a href="{{url_for(source, username=username)}}" class="waves-effect waves-light btn btn-left z-depth-0"><i class="material-icons left">exit_to_app</i>Go back</a>
+        <a href="{{url_for(source, username=username)}}" class="waves-effect waves-light btn btn-details z-depth-0"><i class="material-icons left">exit_to_app</i>Go back</a>
     </div>
     {% if recipe.user == username %}
     <div class="col s3">
-        <a href="{{url_for('edit_recipe', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-left z-depth-0">
+        <a href="{{url_for('edit_recipe', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-details z-depth-0">
                 <i class="material-icons left">edit</i>Edit</a>
     </div>
     <div class="col s3">
-        <a href="{{url_for('delete_recipe', username=username, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-left z-depth-0">
-                <i class="material-icons left">delete</i>Delete</a>
+        <a href="{{url_for('delete_recipe', username=username, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-details del-btn del-color z-depth-0">
+                <i class="material-icons del-color left">delete</i>Delete</a>
     </div>
     {% endif %}
 </div>

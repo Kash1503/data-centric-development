@@ -11,11 +11,125 @@
 <div class="row">
     <div class="col s4">
         <div class="left-section-box">
-            <div>
-                Hi {{user_data.firstname.capitalize()}}<br> Your recipes: {{recipes.count()}}
+            <div class="row">
+                <div class="col s12">
+                    <p>You have {{recipes.count()}} recipes</p>
+                </div>
+                <div class="col s12">
+                    <a href="{{url_for('add_recipe', username=user_data.username.lower())}}" class="waves-effect waves-light btn btn-margin btn-left z-depth-0">
+                    <i class="material-icons left">add_circle_outline</i>New Recipe</a>
+                </div>
+                <div class="col s12">
+                    <a href="{{url_for('browse', username=user_data.username.lower())}}" class="waves-effect waves-light btn btn-left z-depth-0">
+                    <i class="material-icons left">search</i>Browse All</a>
+                </div>
             </div>
-            <a href="{{url_for('add_recipe', username=user_data.username.lower())}}" class="waves-effect waves-light btn btn-left z-depth-0">
-            <i class="material-icons left">add_circle_outline</i>New Recipe</a>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header left-section-box"><i class="material-icons">keyboard_arrow_down</i> Filter
+                        </div>
+                        <div class="collapsible-body section-box">
+                            <form action="{{url_for('filter_recipes', username=username, source='user.html')}}" method="POST">
+                                <div class="row">
+                                    <!--Cuisine filter-->
+                                    <div class="col s12">
+                                        <div class="input-field col s12">
+                                            <select id="cuisine" name="cuisine">
+                                    <option value="all" selected>All</option>
+                                    {% for c in cuisine %}
+                                    {% if active_filters and active_filters.cuisine.lower() == c.name %}
+                                    <option selected value="{{c.name}}">{{c.name.capitalize()}}</option>
+                                    {% else %}
+                                    <option value="{{c.name}}">{{c.name.capitalize()}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                            <label for="cuisine">Cuisine</label>
+                                        </div>
+                                    </div>
+                                    <!--Allergens filter-->
+                                    <div class="col s12">
+                                        <div class="input-field col s12">
+                                            <select id="allergens" name="allergens">
+                                    <option value="all" selected>All</option>
+                                    {% for allergen in allergens %}
+                                    {% if active_filters and active_filters.allergens.lower() == allergen.name%}
+                                    <option selected value="{{allergen.name}}">{{allergen.name.capitalize()}}</option>
+                                    {% else %}
+                                    <option value="{{allergen.name}}">{{allergen.name.capitalize()}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                            <label for="allergens">Allergens</label>
+                                        </div>
+                                    </div>
+                                    <!--Time filter-->
+                                    <div class="col s12">
+                                        <div class="input-field col s12">
+                                            <select id="time" name="time">
+                                        <option value="0-180" selected>Any</option>
+                                        {% for time in time_options %}
+                                        {% if active_filters and active_filters.time == time %}
+                                        <option selected value="{{time}}">{{time}}</option>
+                                        {% else %}
+                                        <option value="{{time}}">{{time}}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                </select>
+                                            <label for="time">Time (mins)</label>
+                                        </div>
+                                    </div>
+                                    <!--Servings filter-->
+                                    <div class="col s12">
+                                        <div class="input-field col s12">
+                                            <select id="servings" name="servings">
+                                    <option value="0-20" selected>Any</option>
+                                    {% for servings in servings_options%}
+                                    {% if active_filters and active_filters.servings == servings %}
+                                    <option selected value="{{servings}}">{{servings}}</option>
+                                    {% else %}
+                                    <option value="{{servings}}">{{servings}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                            <label for="servings">Servings</label>
+                                        </div>
+                                    </div>
+                                    <!--Calories filter-->
+                                    <div class="col s12">
+                                        <div class="input-field col s12">
+                                            <select id="calories" name="calories">
+                                    <option value="0-1000" selected>Any</option>
+                                    {% for calories in calories_options%}
+                                    {% if active_filters and active_filters.calories == calories %}
+                                    <option selected value="{{calories}}">{{calories}}</option>
+                                    {% else %}
+                                    <option value="{{calories}}">{{calories}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                            <label for="calories">Calories (per serving)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <button class="waves-effect waves-light btn btn-margin z-depth-0" type="submit" name="action">Filter
+                                <i class="material-icons left">search</i>
+                            </button>
+                                    </div>
+                                    <div class="col s12">
+                                        <a href="{{url_for('user_page', username=username)}}" class="waves-effect waves-light btn del-btn del-color btn-margin z-depth-0"><i class="material-icons del-color left">delete</i>Remove Filter</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="col s8 recipe-box">
