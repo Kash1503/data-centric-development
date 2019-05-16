@@ -126,8 +126,10 @@ def recipe_details(username, source, recipe_id):
     mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { '$set': {'views': recipe_views['views'] + 1}})
     # Store recipe in new variable with update 'views' field to pass to render template
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    # Store the users details for the user who created the recipe in another variable to pass to the html page
+    user = mongo.db.user.find_one({'username': recipe['user']})
     # Render the recipe details page, passing in the relevant data
-    return render_template('recipedetails.html', username=username, source=source, recipe=recipe)
+    return render_template('recipedetails.html', username=username, source=source, recipe=recipe, user=user)
 
 # Functions, queries and redirects
 
@@ -138,8 +140,15 @@ def insert_user():
     
     # Store the user collection in variable 'user'
     user = mongo.db.user
+    # Create a dictionary with the information taken from the register form
+    new_user = {
+        'username': request.form.get('username').lower(),
+        'firstname': request.form.get('firstname').lower(),
+        'lastname': request.form.get('lastname').lower(),
+        'country': request.form.get('country').lower()
+    }
     # Insert the form data into the user collection
-    user.insert_one(request.form.to_dict())
+    user.insert_one(new_user)
     # Go back to the login page
     return redirect(url_for('login'))
 

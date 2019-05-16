@@ -23,7 +23,7 @@
         <hr>
         <p>Time to cook (mins): {{recipe.time}}</p>
         <hr>
-        <p>Created by: {{recipe.user}}</p>
+        <p>Created by: {{user.firstname.capitalize()}} {{user.lastname.capitalize()}} from {{user.country.capitalize()}}</p>
         <hr>
         <p>Cuisine: {{recipe.cuisine.capitalize()}}</p>
         <hr>
@@ -35,8 +35,13 @@
         <p>{{recipe.description}}</p>
         <hr>
         <p>Views: {{recipe.views}} | Likes: {{recipe.upvotes}}</p><br>
+        {% if username == recipe.user %}
+        <a disabled href="{{url_for('upvote', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-left z-depth-0">
+            <i class="material-icons left">thumb_up</i>Like</a>
+        {% else %}
         <a href="{{url_for('upvote', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-left z-depth-0">
             <i class="material-icons left">thumb_up</i>Like</a>
+        {% endif %}
     </div>
 </div>
 <div class="row">
