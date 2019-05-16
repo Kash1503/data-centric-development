@@ -14,11 +14,10 @@
             <div class="collapsible-body section-box">
                 <form action="{{url_for('filter_recipes', username=username, source='browse.html')}}" method="POST">
                     <div class="row">
-                        <div class="col s12">
-                            <!--Cuisine filter-->
-                            <div class="col s4">
-                                <div class="input-field col s12">
-                                    <select id="cuisine" name="cuisine">
+                        <!--Cuisine filter-->
+                        <div class="col s4">
+                            <div class="input-field col s12">
+                                <select id="cuisine" name="cuisine">
                                     <option value="all" selected>All</option>
                                     {% for c in cuisine %}
                                     {% if active_filters and active_filters.cuisine.lower() == c.name %}
@@ -28,13 +27,13 @@
                                     {% endif %}
                                     {% endfor %}
                                 </select>
-                                    <label for="cuisine">Cuisine</label>
-                                </div>
+                                <label for="cuisine">Cuisine</label>
                             </div>
-                            <!--Allergens filter-->
-                            <div class="col s4">
-                                <div class="input-field col s12">
-                                    <select id="allergens" name="allergens">
+                        </div>
+                        <!--Allergens filter-->
+                        <div class="col s4">
+                            <div class="input-field col s12">
+                                <select id="allergens" name="allergens">
                                     <option value="all" selected>All</option>
                                     {% for allergen in allergens %}
                                     {% if active_filters and active_filters.allergens.lower() == allergen.name%}
@@ -44,28 +43,25 @@
                                     {% endif %}
                                     {% endfor %}
                                 </select>
-                                    <label for="allergens">Allergens</label>
-                                </div>
-                            </div>
-                            <!--Time filter-->
-                            <div class="col s4">
-                                <div class="input-field col s12">
-                                    <select id="time" name="time">
-                                        <option value="0-180" selected>Any</option>
-                                        {% for time in time_options %}
-                                        {% if active_filters and active_filters.time == time %}
-                                        <option selected value="{{time}}">{{time}}</option>
-                                        {% else %}
-                                        <option value="{{time}}">{{time}}</option>
-                                        {% endif %}
-                                        {% endfor %}
-                                </select>
-                                    <label for="time">Time (mins)</label>
-                                </div>
+                                <label for="allergens">Allergen*</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                        <!--Time filter-->
+                        <div class="col s4">
+                            <div class="input-field col s12">
+                                <select id="time" name="time">
+                                    <option value="0-180" selected>Any</option>
+                                    {% for time in time_options %}
+                                    {% if active_filters and active_filters.time == time %}
+                                    <option selected value="{{time}}">{{time}}</option>
+                                    {% else %}
+                                    <option value="{{time}}">{{time}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <label for="time">Time (mins)</label>
+                            </div>
+                        </div>
                         <!--Servings filter-->
                         <div class="col s6">
                             <div class="input-field col s12">
@@ -97,6 +93,9 @@
                                 </select>
                                 <label for="calories">Calories (per serving)</label>
                             </div>
+                        </div>
+                        <div class="col s12">
+                            <p>* This will be removed from the search</p>
                         </div>
                     </div>
                     <div class="row">

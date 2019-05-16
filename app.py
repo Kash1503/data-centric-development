@@ -281,7 +281,7 @@ def filter_recipes(username, source):
         if (request.form.get('allergens') != 'all') and (request.form.get('cuisine') == 'all'):
             recipes = mongo.db.recipes.find(
             {
-                'allergen': allergens_filter, 
+                'allergen': { '$not': { '$regex': allergens_filter }}, 
                 'servings': servings_filter, 
                 'time': time_filter, 
                 'calories': calories_filter
@@ -298,7 +298,7 @@ def filter_recipes(username, source):
             recipes = mongo.db.recipes.find(
             {
                 'cuisine': cuisine_filter, 
-                'allergen': allergens_filter, 
+                'allergen': { '$not': { '$regex': allergens_filter }}, 
                 'servings': servings_filter, 
                 'time': time_filter, 
                 'calories': calories_filter
@@ -317,7 +317,7 @@ def filter_recipes(username, source):
             recipes = mongo.db.recipes.find(
             {
                 'user': username,
-                'allergen': allergens_filter, 
+                'allergen': { '$not': { '$regex': allergens_filter }}, 
                 'servings': servings_filter, 
                 'time': time_filter, 
                 'calories': calories_filter
@@ -336,7 +336,7 @@ def filter_recipes(username, source):
             {
                 'user': username,
                 'cuisine': cuisine_filter, 
-                'allergen': allergens_filter, 
+                'allergen': { '$not': { '$regex': allergens_filter }}, 
                 'servings': servings_filter, 
                 'time': time_filter, 
                 'calories': calories_filter
