@@ -7,6 +7,7 @@ $section-border: #c3d3d6;
 $left-section-color: #f1d1d1;
 $left-section-border: #d4b4b4;
 $del-btn: #e04444;
+$btn-hover: rgba(255, 255, 255, 0.5);
 
 // Colors
 body {
@@ -179,6 +180,14 @@ textarea.materialize-textarea{
 
 .del-color{
     color: $del-btn;
+}
+
+.btn:hover{
+    background-color: $btn-hover;
+}
+
+.btn:focus{
+    background-color: $btn-hover;
 }
 
 // Nav
