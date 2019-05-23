@@ -273,3 +273,14 @@ a.collection-item{
     width: 95% auto;
     padding: 0 !important;
 }
+
+// Analytics page
+
+.chart-box{
+    text-align: center;
+}
+
+#cuisine-time-correlation .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-90deg) translate(-10px, -13px);
+}

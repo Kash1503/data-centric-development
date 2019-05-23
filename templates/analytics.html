@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row">
+    <div class="col s12">
+        <h2 class="page-heading">Analytics</h2>
+    </div>
+</div>
+<div class="row section-box">
+    <div class="col s6">
+        <p class="center-align">Total number of recipes per Cuisine</p>
+        <div id="cuisine-chart"></div>
+    </div>
+    <div class="col s6">
+        <p class="center-align">Total number of recipes per Allergen</p>
+        <div id="allergens-chart"></div>
+    </div>
+</div>
+<div class="row section-box">
+    <div class="col s12">
+        <p class="center-align">Average time to prepare by Cuisine</p>
+        <div class="chart-box" id="cuisine-time-correlation"></div>
+    </div>
+</div>
+
+
+{% endblock %} {% block jscalls %}
+
+<script type="text/javascript" src="{{url_for('static', filename='js/d3.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/crossfilter.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/dc.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/queue.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/charts.js')}}"></script>
+
+{% endblock %}

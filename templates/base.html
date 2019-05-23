@@ -11,8 +11,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Materialize css 0.100.2 call-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <!--link to the style.css file in the static folder-->
+    <!--link to the css files in the static folder-->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dc.min.css')}}" type="text/css" />
+    
 </head>
 
 <body>
@@ -23,7 +25,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{{url_for('user_page', username=username)}}">Home</a></li>
                     <li><a href="{{url_for('browse', username=username)}}">Browse</a></li>
-                    <li><a href="#">Analytics</a></li>
+                    <li><a href="{{url_for('analytics_page', username=username)}}">Analytics</a></li>
                     <li><a href="{{url_for('login')}}">Log out</a></li>
                 </ul>
             </div>
@@ -46,17 +48,17 @@
         </div>
     </footer>
 
-    <!--Initialise jQuery 3.2.1-->
+    <!--Initialise JS files-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!--Materialize js 0.100.2 call-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <!--Initialisation scripts-->
+    <!--Materialize initialisation scripts-->
     <script type="text/javascript">
         $(document).ready(function() {
             $('select').material_select();
             $('.collapsible').collapsible();
         });
     </script>
+    {% block jscalls %} {% endblock %}
 </body>
 
 </html>

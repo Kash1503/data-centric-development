@@ -2,7 +2,10 @@
 import os
 from flask import Flask, redirect, request, render_template, url_for, flash
 from flask_pymongo import PyMongo
+import json
+from bson import json_util
 from bson.objectid import ObjectId
+from bson.json_util import dumps
 
 app = Flask(__name__)
 
@@ -258,7 +261,7 @@ def delete_recipe(username, recipe_id):
     recipes.remove({'_id': ObjectId(recipe_id)})
     # Redirect back to the user page
     return redirect(url_for('user_page', username=username))
-
+    
 
 @app.route('/filter_recipes/<username>/<source>', methods=['POST'])
 def filter_recipes(username, source):
@@ -408,6 +411,23 @@ def upvote(username, source, recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     # return back to the recipe details page, with the updated upvotes
     return render_template('recipedetails.html', username=username, source=source, recipe=recipe)
+
+
+@app.route('/create_graph_data')
+def create_graph_data():
+    
+    recipes = mongo.db.recipes.find()
+    json_recipes = []
+    for recipe in recipes:
+        json_recipes.append(recipe)
+    json_recipes = json.dumps(json_recipes, default=json_util.default)
+    
+    return json_recipes
+
+
+@app.route('/analytics_page/<username>')
+def analytics_page(username):
+    return render_template('analytics.html', username=username)
     
     
 # Get the IP address and PORT number from the os and run the app
