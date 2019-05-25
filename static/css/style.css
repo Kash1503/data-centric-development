@@ -199,6 +199,12 @@ a.collection-item {
   width: 95% auto;
   padding: 0 !important; }
 
+.image_thumb {
+  height: 100px;
+  width: 100px;
+  margin: 10px 0;
+  margin-left: 15px; }
+
 .chart-box {
   text-align: center; }
 

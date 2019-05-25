@@ -29,6 +29,13 @@
                 <h4>Register for an account</h4>
             </div>
         </div>
+        {% for message in get_flashed_messages()%} 
+        <div class="row">
+            <div class="col s8 offset-s2 flash-message">
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
         <div class="row">
             <div class="col s8 offset-s2">
                 <form action="{{url_for('insert_user')}}" method="POST" class="col s12 section-box">

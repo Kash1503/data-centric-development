@@ -23,6 +23,7 @@ test_recipe_data = {
     'protein': '50',
     'fat': '50',
     'calories': '100',
+    'imageURL': 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg'
 }
 
 test_update_recipe_data = {
@@ -38,6 +39,7 @@ test_update_recipe_data = {
     'protein': '50',
     'fat': '50',
     'calories': '100',
+    'imageURL': 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg'
 }
 
 test_delete_recipe_data = {
@@ -57,7 +59,8 @@ test_delete_recipe_data = {
     'protein': 50,
     'fat': 50,
     'calories': 50,
-    'isTest': 'False'
+    'isTest': 'False',
+    'imageURL': 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg'
 }
 
 test_filter_data_cuisine_only = {

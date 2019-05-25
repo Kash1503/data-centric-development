@@ -154,12 +154,16 @@ def insert_user():
         'lastname': request.form.get('lastname').lower(),
         'country': request.form.get('country').lower()
     }
+    
+    if user.find_one({'username': request.form.get('username')}) == None:
     # Insert the form data into the user collection
-    user.insert_one(new_user)
-    # Go back to the login page
-    return redirect(url_for('login'))
-
-
+        user.insert_one(new_user)
+        return redirect(url_for('login'))
+    else:
+        flash('Sorry, this username has already been taken')
+        return redirect(url_for('register'))
+    
+    
 @app.route('/get_user', methods=['POST'])
 def get_user():
 
@@ -208,7 +212,8 @@ def insert_recipe(username):
         'protein': int(request.form.get('protein')),
         'fat': int(request.form.get('fat')),
         'calories': int(request.form.get('calories')),
-        'isTest': 'False'
+        'isTest': 'False',
+        'imageURL': request.form.get('imageURL')
     }
     
     # Store the collection connection to a variable
@@ -247,7 +252,8 @@ def update_recipe(username, recipe_id):
         'protein': int(request.form.get('protein')),
         'fat': int(request.form.get('fat')),
         'calories': int(request.form.get('calories')),
-        'isTest': 'False'
+        'isTest': recipe['isTest'],
+        'imageURL': request.form.get('imageURL')
     }
     
     # Store the collection connection to a variable

@@ -117,16 +117,21 @@
     <div class="col s12 recipe-box">
         <div class="collection">
             {% if recipes.count() > 0 %} {% for recipe in recipes %} {% if recipe.isTest == 'False' %}
-            <a href="{{url_for('recipe_details', username=username, source='user_page', recipe_id=recipe._id)}}" class="collection-item">
+            <a href="{{url_for('recipe_details', username=username, source='browse', recipe_id=recipe._id)}}" class="collection-item">
                 <div class="row recipe-entry">
                     <div class="valign-wrapper center-align">
-                        <div class="col s4 recipe-title">
+                        <div class="col s2">
+                            <div class="valign-wrapper">
+                                <img class="image_thumb" src="{{recipe.imageURL}}"></img>
+                            </div>
+                        </div>
+                        <div class="col s3 recipe-title">
                             <p><i class="material-icons recipe-icon">fastfood</i> {{recipe.title}}</p>
                         </div>
                         <div class="col s3 recipe-info">
                             <p><i class="material-icons recipe-icon">timer</i> {{recipe.time}} min(s)</p>
                         </div>
-                        <div class="col s3 recipe-info">
+                        <div class="col s2 recipe-info">
                             <p><i class="material-icons recipe-icon">person</i> {{recipe.servings}} serving(s)</p>
                         </div>
                         <div class="col s1">
