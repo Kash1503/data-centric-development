@@ -420,14 +420,20 @@ def upvote(username, source, recipe_id):
 def create_graph_data():
     
     """
-    Take data taken from a wuery of the recipes collection
-    and store data as json to be used by dc.js 
+    Take data taken from a query of the recipes collection
+    and store data as json to be used by dc.js, unless it
+    is the recipe used for testing
     """
     
     recipes = mongo.db.recipes.find()
     json_recipes = []
     for recipe in recipes:
-        json_recipes.append(recipe)
+        if recipe['cuisine'] == 'testcuisine':
+            continue
+        elif recipe['allergen'] == 'testallergen':
+            continue
+        else:
+            json_recipes.append(recipe)
     json_recipes = json.dumps(json_recipes, default=json_util.default)
     
     return json_recipes
