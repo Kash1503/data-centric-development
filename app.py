@@ -7,6 +7,7 @@ from bson import json_util
 from bson.objectid import ObjectId
 from bson.json_util import dumps
 
+
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = "recipesDB"
@@ -45,7 +46,7 @@ def add_recipe(username):
                                             allergens=mongo.db.allergens.find(), 
                                             cuisine=mongo.db.cuisine.find())
     
-
+@app.route('/edit_recipe', defaults={'username': 'testuser', 'source': 'browse', 'recipe_id': '5ce95bc41c9d440000985a6b'})
 @app.route('/edit_recipe/<username>/<source>/<recipe_id>')
 
 # Render the 'editrecipe.html' template and pass in the username from user.html
@@ -59,6 +60,7 @@ def edit_recipe(username, source, recipe_id):
                                             source=source)
 
 
+@app.route('/user_page', defaults={'username': 'testuser'})
 @app.route('/user_page/<username>')
 def user_page(username):
 
@@ -89,6 +91,7 @@ def user_page(username):
                                         calories_options=calories_options)
     
 
+@app.route('/browse', defaults={'username': 'testuser'})
 @app.route('/browse/<username>')
 def browse(username):
     
@@ -116,6 +119,7 @@ def browse(username):
                                             calories_options=calories_options)
 
 
+@app.route('/recipe_details', defaults={'username': 'testuser', 'source': 'browse', 'recipe_id': '5ce95bc41c9d440000985a6b'})
 @app.route('/recipe_details/<username>/<source>/<recipe_id>')
 def recipe_details(username, source, recipe_id):
     
@@ -178,6 +182,7 @@ def get_user():
         return redirect(url_for('login'))
         
 
+@app.route('/insert_recipe', defaults={'username': 'testuser'}, methods=['POST'])
 @app.route('/insert_recipe/<username>', methods=['POST'])
 def insert_recipe(username):
     
@@ -203,6 +208,7 @@ def insert_recipe(username):
         'protein': int(request.form.get('protein')),
         'fat': int(request.form.get('fat')),
         'calories': int(request.form.get('calories')),
+        'isTest': 'False'
     }
     
     # Store the collection connection to a variable
@@ -210,9 +216,10 @@ def insert_recipe(username):
     # Insert the new recipe into the recipes collection
     recipes.insert_one(new_recipe)
     # redirect back to the user page, passing in the username
-    return redirect(url_for('user_page', username=username.lower()))
+    return redirect(url_for('user_page', username=username))
     
 
+@app.route('/update_recipe', defaults={'username': 'testuser', 'recipe_id': '5ce95bc41c9d440000985a6b'}, methods=['POST'])
 @app.route('/update_recipe/<username>/<recipe_id>', methods=['POST'])
 def update_recipe(username, recipe_id):
     
@@ -240,6 +247,7 @@ def update_recipe(username, recipe_id):
         'protein': int(request.form.get('protein')),
         'fat': int(request.form.get('fat')),
         'calories': int(request.form.get('calories')),
+        'isTest': 'False'
     }
     
     # Store the collection connection to a variable
@@ -250,6 +258,7 @@ def update_recipe(username, recipe_id):
     return redirect(url_for('user_page', username=username.lower()))
 
 
+@app.route('/delete_recipe', defaults={'username': 'testuser', 'recipe_id': '2f1ebf38bcee491dd7187c25'})
 @app.route('/delete_recipe/<username>/<recipe_id>')
 def delete_recipe(username, recipe_id):
 
@@ -263,6 +272,7 @@ def delete_recipe(username, recipe_id):
     return redirect(url_for('user_page', username=username))
     
 
+@app.route('/filter_recipes', defaults={'username': 'testuser', 'source': 'browse.html'}, methods=['POST'])
 @app.route('/filter_recipes/<username>/<source>', methods=['POST'])
 def filter_recipes(username, source):
     
@@ -397,7 +407,8 @@ def filter_recipes(username, source):
                                     calories_options=calories_options,
                                     active_filters=active_filters)
 
-  
+
+@app.route('/upvote', defaults={'username': 'testuser', 'source': 'browse', 'recipe_id': '5ce95bc41c9d440000985a6b'})
 @app.route('/upvote/<username>/<source>/<recipe_id>')
 def upvote(username, source, recipe_id):
 
@@ -410,7 +421,7 @@ def upvote(username, source, recipe_id):
     # Store the updated recipe data in a new variable, with the updated upvotes
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     # return back to the recipe details page, with the updated upvotes
-    return render_template('recipedetails.html', username=username, source=source, recipe=recipe)
+    return redirect(url_for('recipe_details', username=username, source=source, recipe=recipe))
 
 
 @app.route('/create_graph_data')

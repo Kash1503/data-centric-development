@@ -116,7 +116,7 @@
 <div class="row">
     <div class="col s12 recipe-box">
         <div class="collection">
-            {% if recipes.count() > 0 %} {% for recipe in recipes %}
+            {% if recipes.count() > 0 %} {% for recipe in recipes %} {% if recipe.isTest == 'False' %}
             <a href="{{url_for('recipe_details', username=username, source='user_page', recipe_id=recipe._id)}}" class="collection-item">
                 <div class="row recipe-entry">
                     <div class="valign-wrapper center-align">
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-            </a> {% endfor %} {% else %}
+            </a> {% endif %} {% endfor %} {% else %}
             <div class="collection-item">Oh no! No matching recipe found!
                 <a href="{{url_for('add_recipe', username=username.lower())}}">Be the first to add one?</a></div>
             {% endif %}
