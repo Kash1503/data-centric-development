@@ -412,8 +412,9 @@ def upvote(username, source, recipe_id):
     recipe_upvotes = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { '$set': {'upvotes': recipe_upvotes['upvotes'] + 1}})
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    user = mongo.db.user.find_one({'username': recipe['user']})
     
-    return redirect(url_for('recipe_details', username=username, source=source, recipe=recipe))
+    return render_template('recipedetails.html', username=username, source=source, recipe=recipe, user=user)
 
 
 @app.route('/create_graph_data')
