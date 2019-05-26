@@ -19,25 +19,32 @@
     <header>
         <nav id="top" class="z-depth-0">
             <div class="nav-wrapper">
-                <a href="{{url_for('login')}}" class="brand-logo">Recipe Book</a>
+                <a href="{{url_for('login')}}" class="brand-logo left">Recipe Book</a>
+                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="{{url_for('register')}}">Register</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-nav">
+                    <li><a href="{{url_for('register')}}">Register</a></li>
+                </ul>
             </div>
         </nav>
     </header>
     <div class="container screen-height section-spacing">
         <div class="row page-heading">
-            <div class="col s6 offset-s3">
+            <div class="col s12 l6 offset-l3">
                 <h4>Welcome to Recipe Book!</h4>
             </div>
         </div>
         {% for message in get_flashed_messages()%} 
         <div class="row">
-            <div class="col s6 offset-s3 flash-message">
+            <div class="col s12 l6 offset-l3 flash-message">
                 {{ message }}
             </div>
         </div>
         {% endfor %}
         <div class="row">
-            <form action="{{url_for('get_user')}}" method="POST" class="col s6 offset-s3 section-box">
+            <form action="{{url_for('get_user')}}" method="POST" class="col s12 l6 offset-l3 section-box">
                 <div class="row">
                     <div class="col s12">
                         <h5>Already a user?</h5>
@@ -67,6 +74,11 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!--Materialize js 0.100.2 call-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".button-collapse").sideNav();
+        });
+    </script>
 </body>
 
 </html>

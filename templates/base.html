@@ -14,15 +14,22 @@
     <!--link to the css files in the static folder-->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{url_for('static', filename='css/dc.min.css')}}" type="text/css" />
-    
+
 </head>
 
 <body>
     <header>
         <nav id="top" class="z-depth-0">
             <div class="nav-wrapper">
-                <a href="{{url_for('login')}}" class="brand-logo">Recipe Book</a>
+                <a href="{{url_for('login')}}" class="brand-logo left">Recipe Book</a>
+                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="{{url_for('user_page', username=username)}}">Home</a></li>
+                    <li><a href="{{url_for('browse', username=username)}}">Browse</a></li>
+                    <li><a href="{{url_for('analytics_page', username=username)}}">Analytics</a></li>
+                    <li><a href="{{url_for('login')}}">Log out</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-nav">
                     <li><a href="{{url_for('user_page', username=username)}}">Home</a></li>
                     <li><a href="{{url_for('browse', username=username)}}">Browse</a></li>
                     <li><a href="{{url_for('analytics_page', username=username)}}">Analytics</a></li>
@@ -33,10 +40,10 @@
     </header>
 
     <!--Container for the block content-->
-    <div class="container">
+    <section class="container">
         <!--Content from other templates will go here-->
         {% block content %} {% endblock %}
-    </div>
+    </section>
 
     <footer class="footer">
         <div class="container">
@@ -55,9 +62,11 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('select').material_select();
+            $(".button-collapse").sideNav();
             $('.collapsible').collapsible();
         });
     </script>
+    <!--Any page specific js calls can go here-->
     {% block jscalls %} {% endblock %}
 </body>
 

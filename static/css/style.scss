@@ -9,6 +9,19 @@ $left-section-border: #d4b4b4;
 $del-btn: #e04444;
 $btn-hover: rgba(255, 255, 255, 0.5);
 
+// Mixins
+@mixin min992 {
+    @media only screen and (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin min768 {
+    @media only screen and (min-width: 768px) {
+        @content;
+    }
+}
+
 // Colors
 body {
     background-color: $background;
@@ -23,7 +36,7 @@ input[type=text]:not(.browser-default) {
     border-color: $main-text;
 }
 
-input[type=text]:not(.browser-default):focus:not([readonly]){
+input[type=text]:not(.browser-default):focus:not([readonly]) {
     border-color: $main-text;
     border-bottom: 1px solid $main-text;
     box-shadow: 0 1px 0 0 $main-text;
@@ -35,12 +48,23 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label {
     border-color: $main-text;
 }
 
-.input-field
-.prefix.active {
+.input-field .prefix.active {
     color: $main-text;
 }
 
-nav .brand-logo{
+.side-nav {
+    background-color: $section-color;
+}
+
+.side-nav li a {
+    color: $main-text;
+}
+
+nav a {
+    color: $main-text;
+}
+
+nav .brand-logo {
     color: $main-text;
 }
 
@@ -49,44 +73,43 @@ nav ul a {
     margin-right: 15px;
 }
 
-input[type=range]{
+input[type=range] {
     border-color: $section-color;
     top: 10px;
 }
 
-input[type=range]+.thumb{
+input[type=range]+.thumb {
     background-color: $main-text;
     color: $main-text;
 }
 
 input[type=range]::-webkit-slider-thumb {
-  background-color: $main-text;
+    background-color: $main-text;
 }
 
 input[type=range]::-moz-range-thumb {
-  background-color: $main-text;
+    background-color: $main-text;
 }
 
 input[type=range]::-ms-thumb {
-  background-color: $main-text;
+    background-color: $main-text;
 }
 
-textarea.materialize-textarea:focus:not([readonly]){
+textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid $main-text;
     box-shadow: 0 1px 0 0 $main-text;
     border-color: $main-text;
 }
 
-textarea.materialize-textarea:focus:not([readonly])+label{
+textarea.materialize-textarea:focus:not([readonly])+label {
     color: $main-text;
 }
 
-textarea.materialize-textarea{
+textarea.materialize-textarea {
     border-bottom: 1px solid $main-text;
 }
 
 // Utility classes
-
 .screen-height {
     min-height: 60vh;
 }
@@ -113,7 +136,7 @@ textarea.materialize-textarea{
     border-radius: 5px;
     border: 1px solid $section-border;
     width: 95% auto;
-    padding-left: 10px;
+    margin-bottom: 10px;
 }
 
 .left-section-box {
@@ -125,84 +148,86 @@ textarea.materialize-textarea{
     color: $main-text;
 }
 
-.range-box{
+.range-box {
     width: 85%;
     margin: 0 auto;
 }
 
-.form-section{
+.form-section {
     width: 80%;
     display: inline-block;
     text-align: left;
 }
 
-.form-top{
+.form-top {
     margin-top: 20px;
 }
 
 // Buttons
-
 .btn {
     background-color: rgba(0, 0, 0, 0);
     color: $main-text;
     text-align: center;
+    font-size: 10px;
     padding: 0 10px;
     border: 1px solid $section-border;
 }
 
-.btn-left{
+.btn-left {
     color: $main-text;
     border: 1px solid $left-section-border;
 }
 
-.btn-margin{
+.btn-margin {
     margin-bottom: 25px;
 }
 
-.btn-bar{
-    height: 50px;
+.btn-bar {
+    padding-bottom: 5px;
 }
 
-.btn-details{
+.btn-details {
     color: $main-text;
     margin-top: 6px;
     border: 1px solid $left-section-border;
 }
 
-.btn-section{
+.btn-section {
     color: $main-text;
     border: 1px solid $section-border;
 }
 
-.del-btn{
+.del-btn {
     border: 1px solid $del-btn;
 }
 
-.del-color{
+.del-color {
     color: $del-btn;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: $btn-hover;
 }
 
-.btn:focus{
+.btn:focus {
     background-color: $btn-hover;
 }
 
 // Nav
-
 .nav-wrapper {
     background-color: $background;
 }
 
 .brand-logo {
-    margin-left: 40px;
+    margin-left: 10px;
     color: $main-text;
 }
 
-// Footer
+nav .brand-logo {
+    font-size: 18px;
+}
 
+// Footer
 .footer {
     height: 75px;
     background-color: $background;
@@ -214,13 +239,12 @@ textarea.materialize-textarea{
 }
 
 .footer-text {
-    font-size: 15px;
+    font-size: 10px;
     color: $main-text;
 }
 
 //Login page
-
-.flash-message{
+.flash-message {
     font-size: 20px;
     background-color: $left-section-color;
     border: 1px solid $left-section-border;
@@ -228,41 +252,38 @@ textarea.materialize-textarea{
 }
 
 // User and Browse Page
-
-.collection
-.collection-item{
+.collection .collection-item {
     background-color: $section-color;
     padding: 0 5px;
     border-bottom: 1px solid $section-border;
 }
 
-.collection
-a.collection-item{
+.collection a.collection-item {
     color: $main-text;
 }
 
-.collection{
+.collection {
     border: none;
     margin: 0;
 }
 
 
-.recipe-entry{
+.recipe-entry {
     margin: 0;
 }
 
-.recipe-title{
-    font-size: 17px;
+.recipe-title {
+    font-size: 12px;
     text-align: center;
 }
 
-.recipe-info{
-    font-size: 13px;
+.recipe-info {
+    font-size: 10px;
     text-align: center;
 }
 
-.recipe-icon{
-    font-size: 15px;
+.recipe-icon {
+    font-size: 12px;
     text-align: center;
 }
 
@@ -274,20 +295,106 @@ a.collection-item{
     padding: 0 !important;
 }
 
-.image_thumb{
-    height: 100px;
-    width: 100px;
-    margin: 10px 0;
-    margin-left: 15px;
+.image_thumb {
+    height: 50px;
+    width: 50px;
+    margin: 5px 0;
+    margin-left: 10px;
 }
 
 // Analytics page
-
-.chart-box{
+.chart-box {
     text-align: center;
 }
 
 #cuisine-time-correlation .x.axis text {
     text-anchor: end !important;
     transform: rotate(-90deg) translate(-10px, -13px);
+}
+
+#cuisine-time-correlation-mobile .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-90deg) translate(-10px, -13px);
+}
+
+.dc-legend {
+    font-size: 8px !important;
+}
+
+#cuisine-chart-mobile {
+    transform: translate(-50px, 0);
+}
+
+#allergens-chart-mobile {
+    transform: translate(-50px, 0);
+}
+
+// Media queries
+@include min992 {
+
+    .image_thumb {
+        height: 100px;
+        width: 100px;
+        margin: 10px 0;
+        margin-left: 15px;
+    }
+
+    .recipe-title {
+        font-size: 17px;
+        text-align: center;
+    }
+
+    .recipe-info {
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .recipe-icon {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .brand-logo {
+        margin-left: 40px;
+        color: $main-text;
+    }
+
+    nav .brand-logo {
+        font-size: 30px;
+    }
+
+    .section-box {
+        background-color: $section-color;
+        border-radius: 5px;
+        border: 1px solid $section-border;
+        width: 95% auto;
+        padding-left: 10px;
+    }
+
+    .footer-text {
+        font-size: 15px;
+        color: $main-text;
+    }
+
+    .dc-legend {
+        font-size: 11px !important;
+    }
+    
+    #cuisine-chart {
+        transform: translate(-50px, 0);
+    }
+
+    #allergens-chart {
+        transform: translate(-50px, 0);
+    }
+}
+
+@include min768 {
+    #cuisine-chart-mobile {
+        transform: translate(0, 0);
+    }
+
+    #allergens-chart-mobile {
+        transform: translate(0, 0);
+    }
 }

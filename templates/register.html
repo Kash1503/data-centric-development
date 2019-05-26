@@ -19,26 +19,33 @@
     <header>
         <nav id="top" class="z-depth-0">
             <div class="nav-wrapper">
-                <a href="{{url_for('login')}}" class="brand-logo">Recipe Book</a>
+                <a href="{{url_for('login')}}" class="brand-logo left">Recipe Book</a>
+                <a href="#" data-activates="mobile-nav" class="button-collapse right"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="{{url_for('login')}}">Log In</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-nav">
+                    <li><a href="{{url_for('login')}}">Log In</a></li>
+                </ul>
             </div>
         </nav>
     </header>
     <div class="container">
         <div class="row">
-            <div class="col s6 offset-s3 page-heading">
+            <div class="col s12 l6 offset-l3 page-heading">
                 <h4>Register for an account</h4>
             </div>
         </div>
         {% for message in get_flashed_messages()%} 
         <div class="row">
-            <div class="col s8 offset-s2 flash-message">
+            <div class="col s12 l8 offset-l2 flash-message">
                 {{ message }}
             </div>
         </div>
         {% endfor %}
         <div class="row">
-            <div class="col s8 offset-s2">
-                <form action="{{url_for('insert_user')}}" method="POST" class="col s12 section-box">
+            <div class="col s12 l8 offset-l2 section-box">
+                <form action="{{url_for('insert_user')}}" method="POST" class="col s12">
                     <div class="row form-top">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
@@ -67,13 +74,15 @@
                             <label for="country">Country of Residence</label>
                         </div>
                     </div>
-                    <div class="col s3">
+                    <div class="col s6">
                         <button class="waves-effect waves-light btn z-depth-0 btn-margin" type="submit" name="action">Register
-                    <i class="material-icons left">check_circle</i>
-                </button>
+                            <i class="material-icons left">check_circle</i>
+                        </button>
                     </div>
-                    <div class="col s3">
-                        <a href="{{url_for('login')}}" class="waves-effect waves-light btn z-depth-0 btn-margin"><i class="material-icons left">exit_to_app</i>Go back</a>
+                    <div class="col s6">
+                        <a href="{{url_for('login')}}" class="waves-effect waves-light btn z-depth-0 btn-margin right">
+                            <i class="material-icons left">exit_to_app</i>Go back
+                        </a>
                     </div>
                 </form>
             </div>
@@ -93,6 +102,11 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!--Materialize js 0.100.2 call-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".button-collapse").sideNav();
+        });
+    </script>
 </body>
 
 </html>

@@ -15,7 +15,7 @@
                 <form action="{{url_for('filter_recipes', username=username, source='browse.html')}}" method="POST">
                     <div class="row">
                         <!--Cuisine filter-->
-                        <div class="col s4">
+                        <div class="col s12 l4">
                             <div class="input-field col s12">
                                 <select id="cuisine" name="cuisine">
                                     <option value="all" selected>All</option>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <!--Allergens filter-->
-                        <div class="col s4">
+                        <div class="col s12 l4">
                             <div class="input-field col s12">
                                 <select id="allergens" name="allergens">
                                     <option value="all" selected>All</option>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <!--Time filter-->
-                        <div class="col s4">
+                        <div class="col s12 l4">
                             <div class="input-field col s12">
                                 <select id="time" name="time">
                                     <option value="0-180" selected>Any</option>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <!--Servings filter-->
-                        <div class="col s6">
+                        <div class="col s12 l6">
                             <div class="input-field col s12">
                                 <select id="servings" name="servings">
                                     <option value="0-20" selected>Any</option>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <!--Calories filter-->
-                        <div class="col s6">
+                        <div class="col s12 l6">
                             <div class="input-field col s12">
                                 <select id="calories" name="calories">
                                     <option value="0-1000" selected>Any</option>
@@ -99,12 +99,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s3">
+                        <div class="col s5 l3">
                             <button class="waves-effect waves-light btn z-depth-0" type="submit" name="action">Filter
                                 <i class="material-icons left">search</i>
                             </button>
                         </div>
-                        <div class="col s3">
+                        <div class="col s7 l3">
                             <a href="{{url_for('browse', username=username)}}" class="waves-effect waves-light btn del-btn del-color z-depth-0"><i class="material-icons del-color left">delete</i>Remove Filter</a>
                         </div>
                     </div>
@@ -120,24 +120,27 @@
             <a href="{{url_for('recipe_details', username=username, source='browse', recipe_id=recipe._id)}}" class="collection-item">
                 <div class="row recipe-entry">
                     <div class="valign-wrapper center-align">
-                        <div class="col s2">
+                        <div class="col s3">
                             <div class="valign-wrapper">
                                 <img alt="recipe thumbnail image" class="image_thumb" src="{{recipe.imageURL}}"></img>
                             </div>
                         </div>
-                        <div class="col s3 recipe-title">
-                            <p><i class="material-icons recipe-icon">fastfood</i> {{recipe.title}}</p>
+                        <div class="col s3 l3 recipe-title">
+                            <p class="left">{{recipe.title}}</p>
                         </div>
-                        <div class="col s3 recipe-info">
-                            <p><i class="material-icons recipe-icon">timer</i> {{recipe.time}} min(s)</p>
+                        <div class="col l3 recipe-info hide-on-med-and-down">
+                            <p class="left"><i class="material-icons recipe-icon">timer</i> {{recipe.time}} min(s)</p>
+                        </div>
+                        <div class="col s2 recipe-info hide-on-large-only">
+                            <p class="left"><i class="material-icons recipe-icon">timer</i> {{recipe.time}}</p>
+                        </div>
+                        <div class="col l2 hide-on-med-and-down recipe-info">
+                            <p class="left"><i class="material-icons recipe-icon">person</i> {{recipe.servings}} serving(s)</p>
                         </div>
                         <div class="col s2 recipe-info">
-                            <p><i class="material-icons recipe-icon">person</i> {{recipe.servings}} serving(s)</p>
-                        </div>
-                        <div class="col s1">
                             <i class="material-icons recipe-icon">thumb_up</i> {{recipe.upvotes}}
                         </div>
-                        <div class="col s1">
+                        <div class="col s2 recipe-info">
                             <i class="material-icons recipe-icon">remove_red_eye</i> {{recipe.views}}
                         </div>
                     </div>

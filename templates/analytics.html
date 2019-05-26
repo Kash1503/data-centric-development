@@ -5,7 +5,7 @@
         <h2 class="page-heading">Analytics</h2>
     </div>
 </div>
-<div class="row section-box">
+<div class="row section-box hide-on-med-and-down">
     <div class="col s6">
         <p class="center-align">Total number of recipes per Cuisine</p>
         <div id="cuisine-chart"></div>
@@ -15,10 +15,26 @@
         <div id="allergens-chart"></div>
     </div>
 </div>
-<div class="row section-box">
+<div class="row section-box hide-on-large-only">
+    <div class="col s12 m6 offset-m3">
+        <p class="center-align">Total number of recipes per Cuisine</p>
+        <div id="cuisine-chart-mobile"></div>
+    </div>
+    <div class="col s12 m6 offset-m3">
+        <p class="center-align">Total number of recipes per Allergen</p>
+        <div id="allergens-chart-mobile"></div>
+    </div>
+</div>
+<div class="row section-box hide-on-med-and-down">
     <div class="col s12">
         <p class="center-align">Average time to prepare by Cuisine</p>
         <div class="chart-box" id="cuisine-time-correlation"></div>
+    </div>
+</div>
+<div class="row section-box hide-on-large-only">
+    <div class="col s12">
+        <p class="center-align">Average time to prepare by Cuisine</p>
+        <div class="chart-box" id="cuisine-time-correlation-mobile"></div>
     </div>
 </div>
 

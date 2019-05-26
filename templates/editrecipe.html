@@ -1,13 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="row">
-    <div class="col s6 offset-s3 page-heading">
+    <div class="col s12 l6 offset-l3 page-heading">
         <h4>Edit your recipe</h4>
     </div>
 </div>
-<div class="center-align">
-    <div class="row form-section">
-        <form action="{{url_for('update_recipe', username=username, recipe_id=recipe._id)}}" method="POST" class="col s12 section-box">
+<div class="row">
+    <div class="col s12 section-box">
+        <form action="{{url_for('update_recipe', username=username, recipe_id=recipe._id)}}" method="POST">
             <div class="row form-top">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">title</i>
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12 l6">
                     <i class="material-icons prefix">fastfood</i>
                     <select required id="cuisine" name="cuisine">
                     <option value="" disabled>Choose your option</option>
@@ -39,7 +39,7 @@
                 </select>
                     <label>Cuisine</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s12 l6">
                     <i class="material-icons prefix">report_problem</i>
                     <select required id="allergen" name="allergen">
                     <option value="" disabled>Choose your option</option>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12 l6">
                     <i class="material-icons prefix">people</i>
                     <div class="range-box">
                         <p class="range-field center-align">
@@ -66,7 +66,7 @@
                     </div>
                     <label for="servings">Servings</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s12 l6">
                     <i class="material-icons prefix">timer</i>
                     <div class="range-box">
                         <p class="range-field center-align">
@@ -111,7 +111,7 @@
             </div>
             <h5>Nutritional Info</h5>
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s12 l3">
                     <div class="range-box">
                         <p class="range-field center-align">
                             <input type="range" id="carbs" name="carbs" min="0" max="200" value="{{recipe.carbs}}" />
@@ -119,7 +119,7 @@
                     </div>
                     <label for="carbs">Carbs (g)</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s12 l3">
                     <div class="range-box">
                         <p class="range-field center-align">
                             <input type="range" id="protein" name="protein" min="0" max="200" value="{{recipe.protein}}" />
@@ -127,7 +127,7 @@
                     </div>
                     <label for="time">Protein (g)</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s12 l3">
                     <div class="range-box">
                         <p class="range-field center-align">
                             <input type="range" id="fat" name="fat" min="0" max="200" value="{{recipe.fat}}" />
@@ -135,7 +135,7 @@
                     </div>
                     <label for="fat">Fat (g)</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s12 l3">
                     <div class="range-box">
                         <p class="range-field center-align">
                             <input type="range" id="calories" name="calories" min="0" max="1000" value="{{recipe.calories}}" />
@@ -144,15 +144,15 @@
                     <label for="calories">Calories (per serving)</label>
                 </div>
             </div>
-            <div class="col s3">
+            <div class="col s6 l4">
                 <button class="waves-effect waves-light btn z-depth-0 btn-margin" type="submit" name="action">Update
                     <i class="material-icons left">check_circle</i>
                 </button>
             </div>
-            <div class="col s3">
+            <div class="col s6 l4">
                 <a href="{{url_for('recipe_details', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn z-depth-0 btn-margin"><i class="material-icons left">exit_to_app</i>Go back</a>
             </div>
-            <div class="col s3">
+            <div class="col s12 l4">
                 <a href="{{url_for('delete_recipe', username=username, recipe_id=recipe._id)}}" class="waves-effect waves-light btn z-depth-0 del-btn del-color btn-margin"><i class="material-icons del-color left">delete</i>Delete</a>
             </div>
         </form>

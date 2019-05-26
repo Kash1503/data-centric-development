@@ -1,23 +1,23 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row left-section-box btn-bar">
-    <div class="col s3">
+    <div class="col s6 l3">
         <a href="{{url_for(source, username=username)}}" class="waves-effect waves-light btn btn-details z-depth-0"><i class="material-icons left">exit_to_app</i>Go back</a>
     </div>
     {% if recipe.user == username %}
-    <div class="col s3">
+    <div class="col s6 l3">
         <a href="{{url_for('edit_recipe', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-details z-depth-0">
                 <i class="material-icons left">edit</i>Edit</a>
     </div>
-    <div class="col s3">
+    <div class="col s12 l3">
         <a href="{{url_for('delete_recipe', username=username, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-details del-btn del-color z-depth-0">
                 <i class="material-icons del-color left">delete</i>Delete</a>
     </div>
     {% endif %}
 </div>
-
 <div class="row left-section-box">
-    <div class="col s6">
-        <h4>{{recipe.title}}</h4>
+    <div class="col s12 l6">
+        <h4 class="hide-on-med-and-down">{{recipe.title}}</h4>
+        <h4 class="center-align hide-on-large-only">{{recipe.title}}</h4>
         <hr>
         <p>Serves: {{recipe.servings}}</p>
         <hr>
@@ -30,34 +30,30 @@
         <p>Allergens: {{recipe.allergen.capitalize()}}</p>
 
     </div>
-    <div class="col s6">
-        <h4>Description</h4><br>
+    <div class="col s12 l6">
+        <h4 class="hide-on-med-and-down">Description</h4>
+        <h4 class="center-align hide-on-large-only">Description</h4>
         <p>{{recipe.description}}</p>
         <hr>
-        <p>Views: {{recipe.views}} | Likes: {{recipe.upvotes}}</p><br>
-        {% if username == recipe.user %}
+        <p>Views: {{recipe.views}} | Likes: {{recipe.upvotes}}</p><br> {% if username == recipe.user %}
         <a disabled href="{{url_for('upvote', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-left z-depth-0">
-            <i class="material-icons left">thumb_up</i>Like</a>
-        {% else %}
+            <i class="material-icons left">thumb_up</i>Like</a> {% else %}
         <a href="{{url_for('upvote', username=username, source=source, recipe_id=recipe._id)}}" class="waves-effect waves-light btn btn-left z-depth-0">
-            <i class="material-icons left">thumb_up</i>Like</a>
-        {% endif %}
+            <i class="material-icons left">thumb_up</i>Like</a> {% endif %}
     </div>
 </div>
 <div class="row">
-    <div class="col s6">
-        <div class="section-box">
-            <h4>Ingreditents</h4>
-            <hr>
-            <p>{{recipe.ingredients}}</p>
-        </div>
+    <div class="col s12 l6 section-box">
+        <h4 class="hide-on-med-and-down">Ingreditents</h4>
+        <h4 class="center-align hide-on-large-only">Ingreditents</h4>
+        <hr>
+        <p>{{recipe.ingredients}}</p>
     </div>
-    <div class="col s6">
-        <div class="section-box">
-            <h4>Instructions</h4>
-            <hr>
-            <p>{{recipe.instructions}}</p>
-        </div>
+    <div class="col s12 l6 section-box">
+        <h4 class="hide-on-med-and-down">Instructions</h4>
+        <h4 class="center-align hide-on-large-only">Instructions</h4>
+        <hr>
+        <p>{{recipe.instructions}}</p>
     </div>
 </div>
 {% endblock %}

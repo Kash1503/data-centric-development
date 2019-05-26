@@ -1,25 +1,30 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="row section-spacing">
-    <div class="col s4 page-header">
+<div class="row section-spacing hide-on-med-and-down">
+    <div class="col s4 page-heading">
         <h4>Welcome {{user_data.firstname.capitalize()}}</h4>
     </div>
-    <div class="col s8 page-header">
+    <div class="col s8 page-heading">
         <h4>Your Recipes</h4>
     </div>
 </div>
+<div class="row section-spacing hide-on-med-and-up">
+    <div class="col s12 page-heading">
+        <h4>Welcome {{user_data.firstname.capitalize()}}</h4>
+    </div>
+</div>
 <div class="row">
-    <div class="col s4">
+    <div class="col s12 l4">
         <div class="left-section-box">
             <div class="row">
                 <div class="col s12">
                     <p>You have {{recipes.count()}} recipes</p>
                 </div>
-                <div class="col s12">
-                    <a href="{{url_for('add_recipe', username=user_data.username.lower())}}" class="waves-effect waves-light btn btn-margin btn-left z-depth-0">
+                <div class="col s6">
+                    <a href="{{url_for('add_recipe', username=user_data.username.lower())}}" class="waves-effect waves-light btn btn-left z-depth-0">
                     <i class="material-icons left">add_circle_outline</i>New Recipe</a>
                 </div>
-                <div class="col s12">
+                <div class="col s6">
                     <a href="{{url_for('browse', username=user_data.username.lower())}}" class="waves-effect waves-light btn btn-left z-depth-0">
                     <i class="material-icons left">search</i>Browse All</a>
                 </div>
@@ -135,31 +140,39 @@
             </div>
         </div>
     </div>
-    <div class="col s8 recipe-box">
+    <div class="row section-spacing hide-on-med-and-up">
+        <div class="col s12 page-heading">
+            <h4>Your Recipes</h4>
+        </div>
+    </div>
+    <div class="col s12 l8 recipe-box">
         <div class="collection">
 
             {% if recipes.count() > 0 %} {% for recipe in recipes %} {% if recipe.isTest == 'False' %}
             <a href="{{url_for('recipe_details', username=username, source='user_page', recipe_id=recipe._id)}}" class="collection-item">
                 <div class="row recipe-entry">
                     <div class="valign-wrapper center-align">
-                        <div class="col s2">
+                        <div class="col s3">
                             <div class="valign-wrapper">
                                 <img alt="recipe thumbnail image" class="image_thumb" src="{{recipe.imageURL}}"></img>
                             </div>
                         </div>
-                        <div class="col s3 recipe-title">
-                            <p class="left"><i class="material-icons recipe-icon left">fastfood</i> {{recipe.title}}</p>
+                        <div class="col s3 l3 recipe-title">
+                            <p class="left">{{recipe.title}}</p>
                         </div>
-                        <div class="col s3 recipe-info">
+                        <div class="col l3 recipe-info hide-on-med-and-down">
                             <p class="left"><i class="material-icons recipe-icon">timer</i> {{recipe.time}} min(s)</p>
                         </div>
-                        <div class="col s2 recipe-info">
+                        <div class="col s2 recipe-info hide-on-large-only">
+                            <p class="left"><i class="material-icons recipe-icon">timer</i> {{recipe.time}}</p>
+                        </div>
+                        <div class="col l2 hide-on-med-and-down recipe-info">
                             <p class="left"><i class="material-icons recipe-icon">person</i> {{recipe.servings}} serving(s)</p>
                         </div>
-                        <div class="col s1">
+                        <div class="col s2 recipe-info">
                             <i class="material-icons recipe-icon">thumb_up</i> {{recipe.upvotes}}
                         </div>
-                        <div class="col s1">
+                        <div class="col s2 recipe-info">
                             <i class="material-icons recipe-icon">remove_red_eye</i> {{recipe.views}}
                         </div>
                     </div>
