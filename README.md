@@ -145,7 +145,7 @@ In order to deploy this project, regular commits were made to the Github reposit
 
 I have only used one Git branch to develop and deploy this project. 
 
-[Click here to go to the website]()
+[Click here to go to the website](https://data-centric-design.herokuapp.com/)
 
 ### Content
 
