@@ -144,7 +144,6 @@ textarea.materialize-textarea {
     border-radius: 5px;
     border: 1px solid $left-section-border;
     width: 95% auto;
-    padding-left: 10px;
     color: $main-text;
 }
 
@@ -329,6 +328,37 @@ nav .brand-logo {
     transform: translate(-50px, 0);
 }
 
+// Recipe details page
+.spacer {
+    width: 50px;
+    margin: 30px auto;
+    height: 2px;
+    border: none;
+    background-color: $main-text;
+}
+
+.spacer-nutrition {
+    width: 75px;
+    margin: 5px auto;
+    height: 1px;
+    border: none;
+    background-color: $main-text;
+}
+
+.recipe-image {
+    width: 90%;
+    margin: 0 auto;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.nutrition-box {
+    background-color: $section-color;
+    border-radius: 5px;
+    border: 1px solid $section-border;
+    width: 95% auto;
+    margin: 0 5px 0 5px !important;
+}
+
 // Media queries
 @include min992 {
 
@@ -379,13 +409,37 @@ nav .brand-logo {
     .dc-legend {
         font-size: 11px !important;
     }
-    
+
     #cuisine-chart {
         transform: translate(-50px, 0);
     }
 
     #allergens-chart {
         transform: translate(-50px, 0);
+    }
+
+    .spacer {
+        width: 50px;
+        margin: 30px 0;
+        height: 2px;
+        border: none;
+        background-color: $main-text;
+    }
+
+    .left-section-box {
+        background-color: $left-section-color;
+        border-radius: 5px;
+        border: 1px solid $left-section-border;
+        width: 95% auto;
+        padding-left: 10px;
+        color: $main-text;
+    }
+
+    .nutrition-box {
+        background-color: $section-color;
+        border-radius: 5px;
+        border: 1px solid $section-border;
+        width: 95% auto;
     }
 }
 
