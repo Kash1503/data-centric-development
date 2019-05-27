@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 time_options = ['1-30', '31-60', '61-90', '91-120', '121-150', '151-180']
 servings_options = ['1-5', '6-10', '11-15', '16-20']
 calories_options = ['1-250', '251-500', '501-750', '751-1000']
-    
+
 # Render Templates
 
 @app.route('/')

@@ -133,6 +133,12 @@ All testing completed on Safari and Google Chrome at both mobile and desktop siz
  - Ensured that all data was accurate according to the data held in the database
  - Ensure that the 'test' database entries were not included in the data displayed
 
+*Automatic Testing*
+
+To run the automatic tests, please use the command 'python3 test.py' in the console. All tests should pass.
+
+*Bugs*
+
 Encountered various bugs while testing:
 
 - Bug found when testing the 'Analytics' page where the data included data from the 'test' recipe data.

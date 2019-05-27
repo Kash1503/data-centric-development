@@ -251,7 +251,8 @@ nav .brand-logo {
 .recipe-image {
   width: 90%;
   margin: 0 auto;
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5); }
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 5px; }
 
 .nutrition-box {
   background-color: #e1edef;
